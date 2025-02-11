@@ -24,11 +24,11 @@ MESSAGE_FORMAT = dedent(
     ```
     {readme_content}
     ```
-    ## Message
+    ## Previous message
     ```
     {message}
     ```
-    ## description
+    ## Optional description
     ```
     {description}
     ```
@@ -38,11 +38,36 @@ MESSAGE_FORMAT = dedent(
     The commit message should follow this structure:
     1. First line: <emoji> [(optional scope)]: <short description>
        - Emoji: 1-3 relevant emojis (preferably 1)
-       - Type: conventional commit type (feat, fix, docs, etc.)
        - Scope: optional, in parentheses
-       - Description: concise summary in present tense
+       - Description: concise summary.
     2. Blank line
-    3. Body (optional): detailed description if needed, separated by blank line
+    3. Body: detailed description.
+
+    ### Description
+    - Short summary of what is being done.
+      What change is being made? This should summarize the major changes such that readers have a sense of what is being changed without needing to read the entire CL.
+    - Complete sentence, written as though it was an order.
+
+    The first line of a CL description should be a short summary of specifically what is being done by the CL, followed by a blank line.
+    This is what appears in version control history summaries, so it should be informative enough that future code searchers don’t have to read your CL or its whole description to understand what your CL actually did or how it differs from other CLs.
+    That is, the first line should stand alone, allowing readers to skim through code history much faster.
+    
+    Try to keep your first line short, focused, and to the point. The clarity and utility to the reader should be the top concern.
+    
+    By tradition, the first line of a CL description is a complete sentence, written as though it were an order (an imperative sentence).
+    For example, say "Delete the FizzBuzz RPC and replace it with the new system.” instead of "Deleting the FizzBuzz RPC and replacing it with the new system.”
+    You don’t have to write the rest of the description as an imperative sentence, though.
+    
+    ### Body
+
+    The rest of the description should fill in the details and include any supplemental information a reader needs to understand the changelist holistically.
+    It might include a brief description of the problem that’s being solved, and why this is the best approach.
+    If there are any shortcomings to the approach, they should be mentioned.
+    If relevant, include background information such as bug numbers, benchmark results, and links to design documents.
+    
+    Why are these changes being made?
+    What contexts did you have as an author when making this change?
+    Were there decisions you made that aren’t reflected in the source code? etc.
     
     ## Available Commit Types and Emojis
     ```
@@ -126,18 +151,16 @@ MESSAGE_FORMAT = dedent(
     2. Consider the project context from README.md
     3. Choose the most appropriate commit type based on the changes, but DO NOT add a textual 'type' in the header.
     4. Select 1-3 relevant emojis (prefer using 1 unless multiple aspects need emphasis)
-    5. Write a clear, concise description in present tense
-    6. Add detailed description ONLY if the changes require additional context
+    5. Write a message according to the format and requirments above.
     
     Please generate a commit message that:
-    - Is clear, descriptive, and concise
+    - Is clear and descriptive
     - Uses appropriate emoji(s)
     - Captures the essence of the changes
-    - Is written in present tense
     - Stays under 72 characters for the first line
     
     # Output Format
-    Please provide only the commit message when you reply."""
+    Please provide only the commit message (header + body) when you reply."""
 )
 
 
