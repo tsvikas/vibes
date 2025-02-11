@@ -1,3 +1,7 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
 [project]
 name = "gitmoji-llm"
 version = "0.1.0"
@@ -10,3 +14,6 @@ dependencies = [
     "openai>=1.61.1",
     "python-dotenv>=1.0.1",
 ]
+
+[project.scripts]
+gitmoji-llm = "gitmoji_llm.cli:app"
