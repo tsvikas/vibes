@@ -1,3 +1,4 @@
+import os
 import sys
 from pathlib import Path
 from textwrap import dedent
@@ -5,7 +6,14 @@ from typing import Annotated
 
 import git
 from cyclopts import App, Parameter, validators
+from dotenv import load_dotenv
+from openai import OpenAI
 
+load_dotenv()
+client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+app = App()
+
+MODEL = "gpt-4o"
 MESSAGE_FORMAT = dedent(
     """\
     I need help writing a commit message for the following changes.
@@ -274,9 +282,6 @@ def get_repo_info_cached(path: Path):
     }
 
 
-app = App()
-
-
 @app.default()
 def main(
     path: Annotated[
@@ -287,6 +292,7 @@ def main(
     ] = ".",
     commit: Annotated[str, Parameter(name=("--commit", "-c"))] = "",
     description: Annotated[str, Parameter(name=("--description", "-d"))] = "",
+    just_print: bool = False,
 ):
     """Create a prompt to ask for a commit message
 
@@ -298,9 +304,18 @@ def main(
         Commit-ish to analyze.
     description
         optional description.
+    just_print
+        just print the prompt, don't open it.
     """
     repo_info = get_repo_info(path, commit) if commit else get_repo_info_cached(path)
-    print(MESSAGE_FORMAT.format(**repo_info, description=description.strip()))
+    prompt = MESSAGE_FORMAT.format(**repo_info, description=description.strip())
+    if just_print:
+        print(prompt)
+    else:
+        response = client.chat.completions.create(
+            model=MODEL, messages=[{"role": "user", "content": prompt}]
+        )
+        print(response.choices[0].message.content)
 
 
 if __name__ == "__main__":
