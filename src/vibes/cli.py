@@ -256,7 +256,9 @@ def get_repo_info_cached(path: Path):
     repo = get_repo(path)
 
     # Get diff between commit and its parent
-    git_diff = repo.git.diff("--cached")
+    git_diff = repo.git.diff("--cached") or repo.git.diff()
+    if not git_diff:
+        return get_repo_info(path, "HEAD")
 
     # Get ls-files
     git_ls_files = repo.git.ls_files().splitlines()
