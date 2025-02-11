@@ -168,7 +168,10 @@ MESSAGE_FORMAT = dedent(
     - Stays under 72 characters for the first line
     
     # Output Format
-    Please provide only the commit message (header + body) when you reply."""
+    Please provide only the following
+    - The commit message (header + body) when you reply.
+    - Legend of used icons.
+    """
 )
 
 
