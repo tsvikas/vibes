@@ -1,3 +1,5 @@
+"""Get a commit message from ChatGPT, with emojies! ✨."""
+
 import os
 import sys
 from pathlib import Path
@@ -28,8 +30,7 @@ def get_repo(path: Path) -> git.Repo:
 
 
 def list_files_in_commit(commit: git.Commit) -> list[str]:
-    """
-    Lists all the files in a repo at a given commit
+    """List all the files in a repo at a given commit.
 
     :param commit: A gitpython Commit object
     """
@@ -44,9 +45,7 @@ def list_files_in_commit(commit: git.Commit) -> list[str]:
 
 
 def get_repo_info(path: Path, commit: str) -> dict[str, str]:
-    """
-    Get git information for a specific commit.
-    """
+    """Get git information for a specific commit."""
     repo = get_repo(path)
 
     # Validate commit exists
@@ -90,9 +89,7 @@ def get_repo_info(path: Path, commit: str) -> dict[str, str]:
 
 
 def get_repo_info_cached(path: Path) -> dict[str, str]:
-    """
-    Get git information for the staging area.
-    """
+    """Get git information for the staging area."""
     repo = get_repo(path)
 
     # Get diff between commit and its parent
@@ -140,7 +137,7 @@ def main(
     *,
     just_print: bool = False,
 ) -> None:
-    """Create a prompt to ask for a commit message
+    """Create a prompt to ask for a commit message.
 
     Parameters
     ----------

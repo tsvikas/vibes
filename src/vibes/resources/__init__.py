@@ -1,3 +1,5 @@
+"""resources for vibes."""
+
 from importlib import resources
 
 files = resources.files(__name__)
