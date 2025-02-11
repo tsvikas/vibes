@@ -5,4 +5,4 @@ use `python -m vibes` to run the cli
 
 from .cli import app
 
-app(prog_name="vibes")
+app(prog_name="vibes")  # type: ignore[call-arg]

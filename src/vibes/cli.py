@@ -69,7 +69,6 @@ def get_repo_info(path: Path, commit: str) -> dict[str, str]:
     # Get ls-files
     git_ls_files = list_files_in_commit(commit_obj)
     git_ls_files = [fn for fn in git_ls_files if not fn.startswith("tests")]
-    git_ls_files = "\n".join(git_ls_files)
 
     # Get README content
     readme_paths = ["README.md", "README.MD", "Readme.md", "readme.md"]
@@ -82,11 +81,11 @@ def get_repo_info(path: Path, commit: str) -> dict[str, str]:
         except git.exc.GitCommandError:
             continue
 
-    message = commit_obj.message
+    message = str(commit_obj.message)
 
     return {
         "git_diff": git_diff.strip(),
-        "git_ls_files": git_ls_files.strip(),
+        "git_ls_files": "\n".join(git_ls_files).strip(),
         "readme_content": readme_content.strip(),
         "message": message.strip(),
     }
@@ -137,7 +136,7 @@ def main(
         Parameter(
             name=("repo", "-r"), validator=validators.Path(exists=True, file_okay=False)
         ),
-    ] = ".",
+    ] = Path("."),
     commit: Annotated[str, Parameter(name=("--commit", "-c"))] = "",
     description: Annotated[str, Parameter(name=("--description", "-d"))] = "",
     just_print: bool = False,
@@ -162,8 +161,9 @@ def main(
     else:
         messages = [{"role": "user", "content": prompt}]
         while True:
-            response = client.chat.completions.create(model=MODEL, messages=messages)
+            response = client.chat.completions.create(model=MODEL, messages=messages)  # type: ignore[arg-type]
             assistant_reply = response.choices[0].message.content
+            assert assistant_reply is not None
             messages.append({"role": "assistant", "content": assistant_reply})
             print(assistant_reply)
             print()
