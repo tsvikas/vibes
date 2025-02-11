@@ -312,10 +312,19 @@ def main(
     if just_print:
         print(prompt)
     else:
-        response = client.chat.completions.create(
-            model=MODEL, messages=[{"role": "user", "content": prompt}]
-        )
-        print(response.choices[0].message.content)
+        messages = [{"role": "user", "content": prompt}]
+        while True:
+            response = client.chat.completions.create(model=MODEL, messages=messages)
+            assistant_reply = response.choices[0].message.content
+            messages.append({"role": "assistant", "content": assistant_reply})
+            print(assistant_reply)
+            print()
+
+            # Get user input
+            user_input = input("You: ")
+            if user_input.lower() in ["exit", "quit", ""]:
+                break
+            messages.append({"role": "user", "content": user_input})
 
 
 if __name__ == "__main__":
