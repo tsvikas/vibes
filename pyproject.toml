@@ -105,6 +105,7 @@ test = [
   # "pytest-regressions ~=2.0",
   # "freezegun ~=1.0",
   # "hypothesis ~=6.0",
+  "pytest-mock>=3.14.0",
 ]
 # docs = []
 typing = [

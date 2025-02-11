@@ -1,23 +1,30 @@
-from typer.testing import CliRunner
+from unittest.mock import Mock
+
+import pytest
+from pytest_mock import MockerFixture
 
 from vibes import __version__
 from vibes.cli import app
 
-runner = CliRunner()
+
+def client_chat_completions_create(
+    model: str, messages: list[dict[str, str]]  # noqa: ARG001
+) -> Mock:
+    reply = f"RE: {messages[-1]['content']}"
+    response = Mock()
+    response.choices[0].message.content = reply
+    return response
 
 
-def test_app() -> None:
-    result = runner.invoke(app, ["load"])
-    assert result.exit_code == 0
-    assert "Loading" in result.stdout
+@pytest.fixture
+def mock_openai_client(mocker: MockerFixture) -> Mock:
+    client = mocker.patch("openai.OpenAI")
+    client.chat.completions.create = client_chat_completions_create
+    return client
 
-    result = runner.invoke(app, ["shoot"])
-    assert result.exit_code == 0
-    assert "Shooting" in result.stdout
 
-    result = runner.invoke(app, ["--version"])
-    assert result.exit_code == 0
-    assert __version__ in result.stdout
-
-    result = runner.invoke(app, [])
-    assert result.exit_code == 2
+def test_version(
+    mock_openai_client: Mock, capsys: pytest.CaptureFixture[str]  # noqa: ARG001
+) -> None:
+    app("--version")
+    assert capsys.readouterr().out.strip() == __version__
