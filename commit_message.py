@@ -218,7 +218,7 @@ def get_repo_info(path: Path, commit: str):
         git_diff = repo.git.diff(f"{parent.hexsha}", commit_obj.hexsha)
     except IndexError:
         root_hexsha = "4b825dc642cb6eb9a060e54bf8d69288fbee4904"
-        git_diff = repo.git.diff(f"{parent.hexsha}", root_hexsha)
+        git_diff = repo.git.diff(root_hexsha, commit_obj.hexsha)
 
     # Get ls-files
     git_ls_files = list_files_in_commit(commit_obj)
