@@ -2,18 +2,253 @@
 requires = ["hatchling"]
 build-backend = "hatchling.build"
 
+
 [project]
+dynamic = ["version"]
 name = "vibes"
-version = "0.1.0"
-description = "Add your description here"
+description = "Get a commit message from ChatGPT, with emojies ✨."
+license = "MIT"
+license-files = ["LICEN[CS]E.*"]
 readme = "README.md"
 requires-python = ">=3.13"
-dependencies = [
-    "cyclopts>=3.7.0",
-    "gitpython>=3.1.44",
-    "openai>=1.61.1",
-    "python-dotenv>=1.0.1",
+authors = [
+  {name = "Tsvika Shapira", email = "tsvikas@gmail.com"}
 ]
+keywords = []
+classifiers = [
+  # TODO: remove when ready to upload to pypi
+  "Private :: Do Not Upload",
+  # TODO: choose more classifiers from the list in https://pypi.org/classifiers/
+  # i.e.: Environment, Framework, Intended Audience, Topic
+  # TODO: update the development status
+  "Development Status :: 1 - Planning",
+  # license
+  "License :: OSI Approved :: MIT License",
+  # target os
+  "Operating System :: OS Independent",
+  # python versions
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.13",
+  "Programming Language :: Python :: 3.14",
+  "Typing :: Typed",
+]
+dependencies = [
+  "cyclopts>=3.7.0",
+  "gitpython>=3.1.44",
+  "openai>=1.61.1",
+  "python-dotenv>=1.0.1",
+]
+
+[project.optional-dependencies]
+# optional_name = ["some_package >=1.0"]
+
+[project.urls]
+# homepage = "https://vibes.readthedocs.io"
+source = "https://github.com/tsvikas/vibes"
+# changelog = "https://github.com/tsvikas/vibes/blob/master/CHANGELOG.md"
+# releasenotes = "https://github.com/tsvikas/vibes/releases"
+# documentation = "https://vibes.readthedocs.io"
+# issues = "https://github.com/tsvikas/vibes/issues"
+# funding = "https://github.com/sponsors/tsvikas"
 
 [project.scripts]
 vibes = "vibes.cli:app"
+
+[project.gui-scripts]
+# vibes = "vibes.gui:app.run"
+
+
+[tool.uv]
+default-groups = ["dev", "test", "typing"]
+
+
+[dependency-groups]
+dev = [
+  "rust-just ~=1.0",
+  "pre-commit ~=4.0",
+  "dunamai ~=1.0",
+  "editorconfig-checker ~=3.0",
+  "black ~=25.0",
+  "blacken-docs ~=1.0",
+  "ruff ~=0.9.0",
+  "validate-pyproject[all,store] ~=0.23.0",
+  "shellcheck-py ~=0.10.0",
+  "codespell ~=2.0",
+  ## debug
+  # "icecream",
+  # "snoop",
+  ## ipython/jupyter
+  # "ipython",
+  # "jupyterlab",
+  # "jupytext",
+  # "matplotlib",
+  # "hvplot",
+  # "ipywidgets",
+  # "python-lsp-server",
+  # "jupyter-collaboration",
+]
+test = [
+  "pytest ~=8.0",
+  ## addons
+  "pytest-benchmark ~=5.0",
+  "pytest-cov ~=6.0",
+  "pytest-reverse ~=1.0",
+  "pytest-xdist[psutil] ~=3.0",
+  ## reporting
+  "pytest-clarity ~=1.0",
+  "pytest-pretty ~=1.0",
+  ## fixtures
+  "pytest-loguru >=0",
+  # "pytest-datadir ~=1.0",
+  # "pytest-regressions ~=2.0",
+  # "freezegun ~=1.0",
+  # "hypothesis ~=6.0",
+]
+# docs = []
+typing = [
+  "mypy ~=1.15.0",
+  # add "*-stubs" and "types-*" packages here (">=0")
+]
+
+
+[tool.hatch]
+version.path = "src/vibes/__init__.py"
+
+
+[tool.pytest.ini_options]
+minversion = "6.0"
+addopts = [
+  ## testing
+  "--doctest-modules",
+  "--strict-markers",
+  "--strict-config",
+  ## addons
+  "--benchmark-disable",  # pytest-benchmark
+  "--cov=src/vibes",  # pytest-cov
+  "--reverse",  # pytest-reverse
+  "--numprocesses=auto",  # pytest-xdist
+  ## reporting
+  "-ra",
+  "--showlocals",
+]
+xfail_strict = true
+# CHECK those options:
+filterwarnings = [
+  "error",
+  "default::DeprecationWarning",
+  "error::DeprecationWarning:vibes",
+]
+log_cli_level = "INFO"
+
+
+[tool.coverage]
+run.omit = [
+  "src/vibes/__main__.py",
+]
+
+
+[tool.mypy]
+files = ["src", "tests"]
+mypy_path = "stubs"
+# verify the config file
+warn_unused_configs = true
+# set the platform
+python_version = "3.13"
+# enable checks [last updated: mypy 1.15]
+strict = true
+disallow_any_explicit = true
+disallow_any_unimported = true
+warn_unreachable = true
+#strict_bytes = true  # TODO: enable me when validate-pyproject updates
+enable_error_code = [
+  # from https://mypy.readthedocs.io/en/stable/error_code_list2.html
+  "redundant-self",
+  "deprecated",
+  "redundant-expr",
+  "possibly-undefined",
+  "truthy-bool",
+  "truthy-iterable",
+  "ignore-without-code",
+  "unused-awaitable",
+  "explicit-override",
+  "mutable-override",
+  "unimported-reveal",
+  "narrowed-type-not-subtype",
+]
+
+
+[tool.ruff.format]
+docstring-code-format = true
+
+
+[tool.ruff.lint]
+# Use google-style conventions for docstrings
+pydocstyle.convention = "google"
+select = [
+  "ALL",
+  # extend rules outside pydocstyle google convention
+  "D401",  # pydocstyle/non-imperative-mood
+  "D404",  # pydocstyle/docstring-starts-with-this
+]
+ignore = [
+  # needed only in large codebases
+  "TD002",    # flake8-todos/missing-todo-author
+  "TD003",    # flake8-todos/missing-todo-link
+  # incompatible with other rules
+  "COM812",   # flake8-commas/missing-trailing-comma (incompatible with black)
+  # disagree:
+  "PD010",    # pandas-vet/pandas-use-of-dot-pivot-or-unstack
+  "PD013",    # pandas-vet/pandas-use-of-dot-stack
+  # annoying:
+  "EM10",     # flake8-errmsg/*-in-exception
+  "RET504",   # flake8-return/unnecessary-assign
+  # ban something useful for a possibly good reason
+  #"C901",     # mccabe/complex-structure
+  #"S101",     # flake8-bandit/assert
+  #"PD901",    # pandas-vet/pandas-df-variable-name
+  #"FIX00",    # flake8-fixme/line-contains-*
+  #"ERA001",   # eradicate/commented-out-code
+  #"PLR091",   # PyLint-Refactor/too-many-*
+  #"TRY003",   # tryceratops/raise-vanilla-args
+]
+# objects that should be treated equivalently to a logging.Logger object.
+logger-objects = ["loguru.logger"]
+# allow the omission of a return type hint for __init__
+flake8-annotations.mypy-init-return = true
+# allow `dict(a=1, b=2)`
+flake8-comprehensions.allow-dict-calls-with-keyword-arguments = true
+
+# flag modules or module members that may not be imported or accessed
+[tool.ruff.lint.flake8-tidy-imports.banned-api]
+"collections.namedtuple".msg = "Use typing.NamedTuple or @dataclasses.dataclass(frozen=True, slots=True)"
+
+[tool.ruff.lint.per-file-ignores]
+"src/vibes/cli.py" = [
+  "T20",      # flake8-print
+]
+"!tests/test_*.py" = [
+  "PT",       # flake8-pytest-style
+]
+"tests/test_*.py" = [
+  "INP001",   # flake8-no-pep420/implicit-namespace-package
+  "PLR2004",  # PyLint-Refactor/magic-value-comparison
+  "S101",     # flake8-bandit/assert
+  "D1",       # pydocstyle/undocumented-*
+]
+
+
+[tool.pylint]
+py-version = "3.13"
+# CHECK those options:
+reports.output-format = "colorized"
+similarities.ignore-imports = "yes"
+messages_control.disable = [
+  "design",
+  "fixme",
+  "line-too-long",
+  "missing-module-docstring",
+  "missing-function-docstring",
+  "wrong-import-position",
+]
