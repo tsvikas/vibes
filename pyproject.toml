@@ -3,7 +3,7 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "gitmoji-llm"
+name = "vibes"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
@@ -16,4 +16,4 @@ dependencies = [
 ]
 
 [project.scripts]
-gitmoji-llm = "gitmoji_llm.cli:app"
+vibes = "vibes.cli:app"
