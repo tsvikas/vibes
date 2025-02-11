@@ -157,19 +157,31 @@ def main(
     else:
         messages = [{"role": "user", "content": prompt}]
         while True:
-            response = client.chat.completions.create(model=MODEL, messages=messages)  # type: ignore[arg-type]
-            assistant_reply = response.choices[0].message.content
-            if assistant_reply is None:
-                raise RuntimeError("No reply")
-            messages.append({"role": "assistant", "content": assistant_reply})
-            print(assistant_reply)
-            print()
-
-            # Get user input
-            user_input = input("You: ")
-            if user_input.lower() in ["exit", "quit", ""]:
+            try:
+                messages = chat_loop(messages)
+            except (EOFError, KeyboardInterrupt):
                 break
-            messages.append({"role": "user", "content": user_input})
+
+
+def chat_loop(messages: list[dict[str, str]]) -> list[dict[str, str]]:
+    """Receive, print, and send messages to the chat."""
+    response = client.chat.completions.create(model=MODEL, messages=messages)  # type: ignore[arg-type]
+    assistant_reply = response.choices[0].message.content
+    if assistant_reply is None:
+        raise RuntimeError("No reply")
+    messages.append({"role": "assistant", "content": assistant_reply})
+    print(assistant_reply)
+    print()
+
+    # Get user input
+    try:
+        user_input = input("You: ")
+    except KeyboardInterrupt as e:
+        raise EOFError from e
+    if user_input.lower() in ["exit", "quit", ""]:
+        raise EOFError
+    messages.append({"role": "user", "content": user_input})
+    return messages
 
 
 if __name__ == "__main__":
