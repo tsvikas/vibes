@@ -44,7 +44,7 @@ MESSAGE_FORMAT = dedent(
     # Requirements
     ## Commit Message Format
     The commit message should follow this structure:
-    1. First line: <emoji> [(optional scope)]: <short description>
+    1. First line: <emoji> [(optional scope)] <short description>
        - Emoji: 1-3 relevant emojis (preferably 1)
        - Scope: optional, in parentheses
        - Description: concise summary.
