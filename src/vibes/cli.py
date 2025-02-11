@@ -27,13 +27,13 @@ def get_repo(path: Path) -> git.Repo:
         sys.exit(1)
 
 
-def list_files_in_commit(commit):
+def list_files_in_commit(commit: git.Commit) -> list[str]:
     """
     Lists all the files in a repo at a given commit
 
     :param commit: A gitpython Commit object
     """
-    file_list = []
+    file_list: list[str] = []
     stack = [commit.tree]
     while len(stack) > 0:
         tree = stack.pop()
@@ -45,7 +45,7 @@ def list_files_in_commit(commit):
     return file_list
 
 
-def get_repo_info(path: Path, commit: str):
+def get_repo_info(path: Path, commit: str) -> dict[str, str]:
     """
     Get git information for a specific commit.
     """
@@ -92,7 +92,7 @@ def get_repo_info(path: Path, commit: str):
     }
 
 
-def get_repo_info_cached(path: Path):
+def get_repo_info_cached(path: Path) -> dict[str, str]:
     """
     Get git information for the staging area.
     """
@@ -141,7 +141,7 @@ def main(
     commit: Annotated[str, Parameter(name=("--commit", "-c"))] = "",
     description: Annotated[str, Parameter(name=("--description", "-d"))] = "",
     just_print: bool = False,
-):
+) -> None:
     """Create a prompt to ask for a commit message
 
     Parameters
