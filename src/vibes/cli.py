@@ -38,10 +38,8 @@ def list_files_in_commit(commit: git.Commit) -> list[str]:
     while len(stack) > 0:
         tree = stack.pop()
         # enumerate blobs (files) at this level
-        for b in tree.blobs:
-            file_list.append(b.path)
-        for subtree in tree.trees:
-            stack.append(subtree)
+        file_list.extend(str(b.path) for b in tree.blobs)
+        stack.extend(tree.trees)
     return file_list
 
 
@@ -136,9 +134,10 @@ def main(
         Parameter(
             name=("repo", "-r"), validator=validators.Path(exists=True, file_okay=False)
         ),
-    ] = Path("."),
+    ] = Path(),
     commit: Annotated[str, Parameter(name=("--commit", "-c"))] = "",
     description: Annotated[str, Parameter(name=("--description", "-d"))] = "",
+    *,
     just_print: bool = False,
 ) -> None:
     """Create a prompt to ask for a commit message
@@ -163,7 +162,8 @@ def main(
         while True:
             response = client.chat.completions.create(model=MODEL, messages=messages)  # type: ignore[arg-type]
             assistant_reply = response.choices[0].message.content
-            assert assistant_reply is not None
+            if assistant_reply is None:
+                raise RuntimeError("No reply")
             messages.append({"role": "assistant", "content": assistant_reply})
             print(assistant_reply)
             print()
