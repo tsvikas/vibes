@@ -2,6 +2,9 @@ name: Lint and test
 
 on: [push, pull_request]
 
+env:
+  OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+
 jobs:
   black:
     if: ${{ always() }}
