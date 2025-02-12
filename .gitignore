@@ -48,16 +48,13 @@ venv/
 .hypothesis/
 .benchmarks/
 
-# PyCharm
-.idea/
+# Secrets
+.env
 
 # jupyter
 .ipynb_checkpoints/
 
 # TODO
 TODO*
-
-# secrets
-.env
 
 # specific to this project:

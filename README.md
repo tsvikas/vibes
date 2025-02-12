@@ -3,7 +3,6 @@
 <!-- prettier-ignore-start -->
 [![Tests][tests-badge]][tests-link]
 [![Documentation Status][rtd-badge]][rtd-link]
-![Python Versions][python-versions-badge]
 
 [![PyPI version][pypi-version]][pypi-link]
 [![Conda-Forge][conda-badge]][conda-link]
@@ -12,18 +11,17 @@
 [![GitHub Discussion][github-discussions-badge]][github-discussions-link]
 
 
-[python-versions-badge]:    https://img.shields.io/pypi/pyversions/vibes
-[tests-badge]:              https://github.com/tsvikas/vibes/actions/workflows/tests.yml/badge.svg
-[tests-link]:               https://github.com/tsvikas/vibes/actions/workflows/tests.yml
-[conda-badge]:              https://img.shields.io/conda/vn/conda-forge/vibes
-[conda-link]:               https://github.com/conda-forge/vibes-feedstock
-[github-discussions-badge]: https://img.shields.io/static/v1?label=Discussions&message=Ask&color=blue&logo=github
-[github-discussions-link]:  https://github.com/tsvikas/vibes/discussions
-[pypi-link]:                https://pypi.org/project/vibes/
-[pypi-platforms]:           https://img.shields.io/pypi/pyversions/vibes
-[pypi-version]:             https://img.shields.io/pypi/v/vibes
+[tests-badge]:              https://github.com/tsvikas/vibes/actions/workflows/lint_and_test.yml/badge.svg
+[tests-link]:               https://github.com/tsvikas/vibes/actions/workflows/lint_and_test.yml
 [rtd-badge]:                https://readthedocs.org/projects/vibes/badge/?version=latest
 [rtd-link]:                 https://vibes.readthedocs.io/en/latest/?badge=latest
+[pypi-version]:             https://img.shields.io/pypi/v/vibes
+[pypi-link]:                https://pypi.org/project/vibes/
+[conda-badge]:              https://img.shields.io/conda/vn/conda-forge/vibes
+[conda-link]:               https://github.com/conda-forge/vibes-feedstock
+[pypi-platforms]:           https://img.shields.io/pypi/pyversions/vibes
+[github-discussions-badge]: https://img.shields.io/static/v1?label=Discussions&message=Ask&color=blue&logo=github
+[github-discussions-link]:  https://github.com/tsvikas/vibes/discussions
 
 <!-- prettier-ignore-end -->
 
