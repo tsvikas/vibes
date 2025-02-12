@@ -1,5 +1,5 @@
 # Changes here will be overwritten by Copier; NEVER EDIT MANUALLY
-_commit: v0.11.2-4-g65d4bb6
+_commit: v0.11.2-10-gc6db68d
 _src_path: gh:tsvikas/python-template
 email: tsvikas@gmail.com
 format_tool: black
