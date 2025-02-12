@@ -2,6 +2,8 @@ I need help writing a commit message for the following changes.
 Please analyze the provided information and generate a clear, concise commit message.
 
 # Input Information
+Please consider this diff and the context when you create the commit message.
+
 ## git diff
 ```
 {git_diff}
@@ -15,10 +17,12 @@ Please analyze the provided information and generate a clear, concise commit mes
 {readme_content}
 ```
 ## Previous message
+This might be correct or misleading
 ```
 {message}
 ```
 ## Optional description
+This might have important notes.
 ```
 {description}
 ```
@@ -59,7 +63,7 @@ Why are these changes being made?
 What contexts did you have as an author when making this change?
 Were there decisions you made that aren’t reflected in the source code? etc.
 
-## Available Commit Types and Emojis
+### Available Commit Types and Emojis
 ```
 🎨:art:Improve structure / format of the code.
 ⚡️:zap:Improve performance.
@@ -136,12 +140,14 @@ Were there decisions you made that aren’t reflected in the source code? etc.
 🦺:safety-vest:Add or update code related to validation.
 ```
 
-# Instructions
+## Instructions
 1. Analyze the git diff to understand the nature and scope of changes
-2. Consider the project context from README.md
-3. Choose the most appropriate commit type based on the changes, but DO NOT add a textual 'type' in the header.
-4. Select 1-3 relevant emojis (prefer using 1 unless multiple aspects need emphasis)
-5. Write a message according to the format and requirements above.
+2. Consider the project context from README.md and git ls-files
+3. Consider the previous message or the provided description.
+4. Choose the most appropriate commit type based on the changes, but DO NOT add a textual 'type' in the header.
+5. Select 1-3 relevant emojis (prefer using 1 unless multiple aspects need emphasis)
+6. Check if the commit is relevant only to a specific scope.
+7. Write a message according to the format and requirements above.
 
 Please generate a commit message that:
 - Is clear and descriptive
