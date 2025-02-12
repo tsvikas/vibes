@@ -165,6 +165,7 @@ def main(
 
 def chat_loop(messages: list[dict[str, str]]) -> list[dict[str, str]]:
     """Receive, print, and send messages to the chat."""
+    print()
     response = client.chat.completions.create(model=MODEL, messages=messages)  # type: ignore[arg-type]
     assistant_reply = response.choices[0].message.content
     if assistant_reply is None:
