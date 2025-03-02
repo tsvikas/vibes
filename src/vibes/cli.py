@@ -44,27 +44,37 @@ def list_files_in_commit(commit: git.Commit) -> list[str]:
     return file_list
 
 
-def get_repo_info(path: Path, commit: str) -> dict[str, str]:
+def commit_to_obj(commit: str, repo: git.Repo) -> git.Commit:
+    """Convert a commit-ish to commit object."""
+    try:
+        commit_obj = repo.commit(commit)
+    except git.exc.BadName as e:
+        if "not enough parent commits to reach" in str(e):
+            return repo.commit("4b825dc642cb6eb9a060e54bf8d69288fbee4904")
+        raise
+    return commit_obj
+
+
+def get_repo_info(path: Path, commit_range: str) -> dict[str, str]:
     """Get git information for a specific commit."""
     repo = get_repo(path)
 
-    # Validate commit exists
-    try:
-        commit_obj = repo.commit(commit)
-    except git.exc.BadName:
-        print(f"Error: Invalid commit: {commit}", file=sys.stderr)
-        sys.exit(1)
+    commit_range = commit_range.replace("@", "HEAD")
+    if ".." in commit_range:
+        commit_start, commit_end = commit_range.split("..")
+    else:
+        commit_start = commit_range + "~"
+        commit_end = commit_range
+
+    # Validate commits exists
+    start_obj = commit_to_obj(commit_start, repo)
+    end_obj = commit_to_obj(commit_end, repo)
 
     # Get diff between commit and its parent
-    try:
-        parent = commit_obj.parents[0]
-        git_diff = repo.git.diff(f"{parent.hexsha}", commit_obj.hexsha)
-    except IndexError:
-        root_hexsha = "4b825dc642cb6eb9a060e54bf8d69288fbee4904"
-        git_diff = repo.git.diff(root_hexsha, commit_obj.hexsha)
+    git_diff = repo.git.diff(start_obj.hexsha, end_obj.hexsha)
 
     # Get ls-files
-    git_ls_files = list_files_in_commit(commit_obj)
+    git_ls_files = list_files_in_commit(end_obj)
     git_ls_files = [fn for fn in git_ls_files if not fn.startswith("tests")]
 
     # Get README content
@@ -73,12 +83,14 @@ def get_repo_info(path: Path, commit: str) -> dict[str, str]:
 
     for readme_path in readme_paths:
         try:
-            readme_content = repo.git.show(f"{commit}:{readme_path}")
+            readme_content = repo.git.show(f"{commit_end}:{readme_path}")
             break
         except git.exc.GitCommandError:
             continue
 
-    message = str(commit_obj.message)
+    message = "\n\n".join(
+        str(commit.message) for commit in repo.iter_commits(commit_range)
+    )
 
     return {
         "git_diff": git_diff.strip(),
@@ -150,7 +162,14 @@ def main(
     just_print
         just print the prompt, don't open it.
     """
-    repo_info = get_repo_info(path, commit) if commit else get_repo_info_cached(path)
+    try:
+        repo_info = (
+            get_repo_info(path, commit) if commit else get_repo_info_cached(path)
+        )
+    except git.exc.BadName as e:
+        print("Error:", str(e), file=sys.stderr)
+        sys.exit(1)
+
     prompt = MESSAGE_FORMAT.format(**repo_info, description=description.strip())
     if just_print:
         print(prompt)
