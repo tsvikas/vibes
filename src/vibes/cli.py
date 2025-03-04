@@ -147,7 +147,7 @@ def main(
     commit: Annotated[str, Parameter(name=("--commit", "-c"))] = "",
     description: Annotated[str, Parameter(name=("--description", "-d"))] = "",
     *,
-    just_print: bool = False,
+    only_prompt: bool = False,
 ) -> None:
     """Create a prompt to ask for a commit message.
 
@@ -159,7 +159,7 @@ def main(
         Commit-ish to analyze.
     description
         optional description.
-    just_print
+    only_prompt
         just print the prompt, don't open it.
     """
     try:
@@ -171,15 +171,15 @@ def main(
         sys.exit(1)
 
     prompt = MESSAGE_FORMAT.format(**repo_info, description=description.strip())
-    if just_print:
+    if only_prompt:
         print(prompt)
-    else:
-        messages = [{"role": "user", "content": prompt}]
-        while True:
-            try:
-                messages = chat_loop(messages)
-            except (EOFError, KeyboardInterrupt):
-                break
+        return
+    messages = [{"role": "user", "content": prompt}]
+    while True:
+        try:
+            messages = chat_loop(messages)
+        except (EOFError, KeyboardInterrupt):
+            break
 
 
 def chat_loop(messages: list[dict[str, str]]) -> list[dict[str, str]]:
