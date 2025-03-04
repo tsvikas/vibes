@@ -149,6 +149,7 @@ def main(
     commit: Annotated[str, Parameter(name=("--commit", "-c"))] = "",
     description: Annotated[str, Parameter(name=("--description", "-d"))] = "",
     only_prompt: bool = False,
+    skip_chat: bool = False,
 ) -> None:
     """Create a prompt to ask for a commit message.
 
@@ -162,6 +163,8 @@ def main(
         optional description.
     only_prompt
         just print the prompt, don't open it.
+    skip_chat
+        don't start a chat with the LLM
     """
     try:
         repo_info = (
@@ -178,12 +181,14 @@ def main(
     messages = [{"role": "user", "content": prompt}]
     while True:
         try:
-            messages = chat_loop(messages)
+            messages = chat_loop(messages, skip_chat=skip_chat)
         except (EOFError, KeyboardInterrupt):
             break
 
 
-def chat_loop(messages: list[dict[str, str]]) -> list[dict[str, str]]:
+def chat_loop(
+    messages: list[dict[str, str]], *, skip_chat: bool = False
+) -> list[dict[str, str]]:
     """Receive, print, and send messages to the chat."""
     print()
     response = client.chat.completions.create(model=MODEL, messages=messages)  # type: ignore[arg-type]
@@ -193,6 +198,8 @@ def chat_loop(messages: list[dict[str, str]]) -> list[dict[str, str]]:
     messages.append({"role": "assistant", "content": assistant_reply})
     print(assistant_reply)
     print()
+    if skip_chat:
+        raise EOFError
 
     # Get user input
     try:
