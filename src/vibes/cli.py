@@ -149,7 +149,7 @@ def main(
     commit: Annotated[str, Parameter(name=("--commit", "-c"))] = "",
     description: Annotated[str, Parameter(name=("--description", "-d"))] = "",
     only_prompt: bool = False,
-    skip_chat: bool = False,
+    skip_chat: Annotated[bool, Parameter(name=("--skip-chat", "-s"))] = False,
 ) -> None:
     """Create a prompt to ask for a commit message.
 
