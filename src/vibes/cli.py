@@ -144,9 +144,10 @@ def main(
             name=("repo", "-r"), validator=validators.Path(exists=True, file_okay=False)
         ),
     ] = Path(),
+    /,
+    *,
     commit: Annotated[str, Parameter(name=("--commit", "-c"))] = "",
     description: Annotated[str, Parameter(name=("--description", "-d"))] = "",
-    *,
     only_prompt: bool = False,
 ) -> None:
     """Create a prompt to ask for a commit message.
