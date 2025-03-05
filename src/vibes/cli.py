@@ -14,9 +14,9 @@ from .resources import prompt_md
 
 load_dotenv()
 client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+model = os.getenv("MODEL", "gpt-4o")
 app = App()
 
-MODEL = "gpt-4o"
 MESSAGE_FORMAT = prompt_md.read_text()
 
 
@@ -191,7 +191,7 @@ def chat_loop(
 ) -> list[dict[str, str]]:
     """Receive, print, and send messages to the chat."""
     print()
-    response = client.chat.completions.create(model=MODEL, messages=messages)  # type: ignore[arg-type]
+    response = client.chat.completions.create(model=model, messages=messages)  # type: ignore[arg-type]
     assistant_reply = response.choices[0].message.content
     if assistant_reply is None:
         raise RuntimeError("No reply")
