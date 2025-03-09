@@ -1,16 +1,16 @@
 # Changes here will be overwritten by Copier; NEVER EDIT MANUALLY
-_commit: v0.11.2-10-gc6db68d
+_commit: v0.13.2
 _src_path: gh:tsvikas/python-template
-email: tsvikas@gmail.com
 format_tool: black
-full_name: Tsvika Shapira
 get_package_version_from_vcs: false
+github_user: tsvikas
 has_cli: true
 jupyter_files: forbid
 license: MIT
 package_description: Get a commit message from ChatGPT, with emojies ✨.
 package_name: vibes
 project_name: vibes
-python_minor: 13
-username: tsvikas
+python_min: 13
+user_email: tsvikas@gmail.com
+user_name: Tsvika Shapira
 year: 2025

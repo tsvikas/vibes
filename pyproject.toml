@@ -22,8 +22,6 @@ classifiers = [
   # i.e.: Environment, Framework, Intended Audience, Topic
   # TODO: update the development status
   "Development Status :: 1 - Planning",
-  # license
-  "License :: OSI Approved :: MIT License",
   # target os
   "Operating System :: OS Independent",
   # python versions
@@ -31,7 +29,6 @@ classifiers = [
   "Programming Language :: Python :: 3",
   "Programming Language :: Python :: 3 :: Only",
   "Programming Language :: Python :: 3.13",
-  "Programming Language :: Python :: 3.14",
   "Typing :: Typed",
 ]
 dependencies = [
@@ -61,51 +58,40 @@ vibes = "vibes.cli:app"
 
 
 [tool.uv]
+required-version = "~=0.6.0"
 default-groups = ["dev", "test", "typing"]
 
 
 [dependency-groups]
 dev = [
+  ## used in the justfile
   "rust-just ~=1.0",
   "pre-commit ~=4.0",
-  "dunamai ~=1.0",
-  "editorconfig-checker ~=3.0",
-  "black ~=25.0",
-  "blacken-docs ~=1.0",
+  "black ~=25.0",  # also update GHA version
   "ruff ~=0.9.0",
-  "validate-pyproject[all,store] ~=0.23.0",
-  "shellcheck-py ~=0.10.0",
-  "codespell ~=2.0",
-  ## debug
-  # "icecream",
-  # "snoop",
-  ## ipython/jupyter
-  # "ipython",
-  # "jupyterlab",
-  # "jupytext",
-  # "matplotlib",
-  # "hvplot",
-  # "ipywidgets",
-  # "python-lsp-server",
-  # "jupyter-collaboration",
+  ## can be used for debug
+  "icecream >=2",
+  "snoop >=0.3",
+  ## can be used for REPL
+  "ipython >=8",
 ]
 test = [
   "pytest ~=8.0",
-  ## addons
-  "pytest-benchmark ~=5.0",
-  "pytest-cov ~=6.0",
+  ## running
   "pytest-reverse ~=1.0",
   "pytest-xdist[psutil] ~=3.0",
   ## reporting
   "pytest-clarity ~=1.0",
-  "pytest-pretty ~=1.0",
+  ## extras
+  "pytest-benchmark ~=5.0",
+  "pytest-cov ~=6.0",
   ## fixtures
-  "pytest-loguru >=0",
-  # "pytest-datadir ~=1.0",
-  # "pytest-regressions ~=2.0",
+  # "pytest-loguru >=0",
   # "freezegun ~=1.0",
   # "hypothesis ~=6.0",
-  "pytest-mock>=3.14.0",
+  # "pytest-datadir ~=1.0",
+  "pytest-mock ~=3.0",
+  # "pytest-regressions ~=2.0",
 ]
 # docs = []
 typing = [
@@ -119,20 +105,19 @@ version.path = "src/vibes/__init__.py"
 
 
 [tool.pytest.ini_options]
-minversion = "6.0"
+minversion = "7.0"
 addopts = [
   ## testing
   "--doctest-modules",
   "--strict-markers",
   "--strict-config",
+  ## reporting
+  "-ra",
   ## addons
   "--benchmark-disable",  # pytest-benchmark
   "--cov=src/vibes",  # pytest-cov
   "--reverse",  # pytest-reverse
   "--numprocesses=auto",  # pytest-xdist
-  ## reporting
-  "-ra",
-  "--showlocals",
 ]
 xfail_strict = true
 # CHECK those options:
@@ -242,14 +227,4 @@ flake8-comprehensions.allow-dict-calls-with-keyword-arguments = true
 
 [tool.pylint]
 py-version = "3.13"
-# CHECK those options:
 reports.output-format = "colorized"
-similarities.ignore-imports = "yes"
-messages_control.disable = [
-  "design",
-  "fixme",
-  "line-too-long",
-  "missing-module-docstring",
-  "missing-function-docstring",
-  "wrong-import-position",
-]
