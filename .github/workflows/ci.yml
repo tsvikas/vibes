@@ -6,7 +6,7 @@ on:
   push:
 
 env:
-  OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+  OPENAI_API_KEY: MOCK_KEY_FOR_TESTING
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
