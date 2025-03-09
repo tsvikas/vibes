@@ -5,6 +5,7 @@ import sys
 from pathlib import Path
 from typing import Annotated
 
+import anthropic
 import git
 from cyclopts import App, Parameter, validators
 from dotenv import load_dotenv
@@ -221,6 +222,42 @@ class ChatGPT:
             model=self.model, messages=self.messages  # type: ignore[arg-type]
         )
         assistant_reply = response.choices[0].message.content
+        if assistant_reply is None:
+            raise RuntimeError("No reply")
+        self.messages.append({"role": "assistant", "content": assistant_reply})
+        return assistant_reply
+
+
+class Claude:
+    """A chat with Anthropic LLM."""
+
+    def __init__(self, api_key: None | str = None, model: None | str = None):
+        """Create a chat with Anthropic LLM."""
+        api_key = api_key or os.getenv("ANTHROPIC_API_KEY")
+        assert api_key is not None  # noqa: S101
+        model = model or os.getenv("MODEL", "claude-3-7-sonnet-20250219")
+        assert model is not None  # noqa: S101
+
+        self.client = anthropic.Anthropic()
+        self.model = model
+        self.messages: list[dict[str, str]] = []
+
+    def add_message(self, content: str, role: str = "user") -> None:
+        """Add a message to the chat."""
+        self.messages.append({"role": role, "content": content})
+
+    def get_reply(self) -> str:
+        """Get LLM's reply to the chat."""
+        response = self.client.messages.create(
+            model=self.model,
+            max_tokens=1000,
+            messages=self.messages,  # type: ignore[arg-type]
+        )
+        if len(response.content) > 1:
+            raise RuntimeError
+        if not isinstance(response.content[0], anthropic.types.TextBlock):
+            raise RuntimeError  # noqa: TRY004
+        assistant_reply = response.content[0].text
         if assistant_reply is None:
             raise RuntimeError("No reply")
         self.messages.append({"role": "assistant", "content": assistant_reply})
