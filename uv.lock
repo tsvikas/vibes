@@ -1016,7 +1016,7 @@ test = [
     { name = "pytest-benchmark", specifier = "~=5.0" },
     { name = "pytest-clarity", specifier = "~=1.0" },
     { name = "pytest-cov", specifier = "~=6.0" },
-    { name = "pytest-mock", specifier = "~=3.0" },
+    { name = "pytest-mock", specifier = "~=3.3" },
     { name = "pytest-reverse", specifier = "~=1.0" },
     { name = "pytest-xdist", extras = ["psutil"], specifier = "~=3.0" },
 ]
