@@ -16,7 +16,7 @@ from .resources import prompt_md
 load_dotenv()
 app = App()
 
-MESSAGE_FORMAT = prompt_md.read_text()
+MESSAGE_FORMAT = prompt_md.read_text(encoding="utf-8")
 
 
 def get_repo(path: Path) -> git.Repo:
