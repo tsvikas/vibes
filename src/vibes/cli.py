@@ -13,8 +13,6 @@ from openai import OpenAI
 from .resources import prompt_md
 
 load_dotenv()
-client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
-model = os.getenv("MODEL", "gpt-4o")
 app = App()
 
 MESSAGE_FORMAT = prompt_md.read_text()
@@ -178,38 +176,55 @@ def main(
     if only_prompt:
         print(prompt)
         return
-    messages = [{"role": "user", "content": prompt}]
+
+    chat = ChatGPT()
+    chat.add_message(prompt)
+
+    # REPL loop
     while True:
+        print()
+        assistant_reply = chat.get_reply()
+        print(assistant_reply)
+        print()
+        if skip_chat:
+            break
+        # Get user input
         try:
-            messages = chat_loop(messages, skip_chat=skip_chat)
+            user_input = input("You: ")
         except (EOFError, KeyboardInterrupt):
             break
+        if user_input.lower() in ["exit", "quit", ""]:
+            break
+        chat.add_message(user_input)
 
 
-def chat_loop(
-    messages: list[dict[str, str]], *, skip_chat: bool = False
-) -> list[dict[str, str]]:
-    """Receive, print, and send messages to the chat."""
-    print()
-    response = client.chat.completions.create(model=model, messages=messages)  # type: ignore[arg-type]
-    assistant_reply = response.choices[0].message.content
-    if assistant_reply is None:
-        raise RuntimeError("No reply")
-    messages.append({"role": "assistant", "content": assistant_reply})
-    print(assistant_reply)
-    print()
-    if skip_chat:
-        raise EOFError
+class ChatGPT:
+    """A chat with OpenAI LLM."""
 
-    # Get user input
-    try:
-        user_input = input("You: ")
-    except KeyboardInterrupt as e:
-        raise EOFError from e
-    if user_input.lower() in ["exit", "quit", ""]:
-        raise EOFError
-    messages.append({"role": "user", "content": user_input})
-    return messages
+    def __init__(self, api_key: None | str = None, model: None | str = None):
+        """Create a chat with OpenAI LLM."""
+        api_key = api_key or os.getenv("OPENAI_API_KEY")
+        assert api_key is not None  # noqa: S101
+        model = model or os.getenv("MODEL", "gpt-4o")
+        assert model is not None  # noqa: S101
+        self.client = OpenAI(api_key=api_key)
+        self.model = model
+        self.messages: list[dict[str, str]] = []
+
+    def add_message(self, content: str, role: str = "user") -> None:
+        """Add a message to the chat."""
+        self.messages.append({"role": role, "content": content})
+
+    def get_reply(self) -> str:
+        """Get LLM's reply to the chat."""
+        response = self.client.chat.completions.create(
+            model=self.model, messages=self.messages  # type: ignore[arg-type]
+        )
+        assistant_reply = response.choices[0].message.content
+        if assistant_reply is None:
+            raise RuntimeError("No reply")
+        self.messages.append({"role": "assistant", "content": assistant_reply})
+        return assistant_reply
 
 
 if __name__ == "__main__":
