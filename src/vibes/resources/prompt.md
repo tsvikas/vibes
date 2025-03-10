@@ -141,6 +141,7 @@ Please consider this diff and the context when you create the commit message.
 ```
 {readme_content}
 ```
+<end of README>
 
 ## git ls-files (without tests) ##############################################
 ```
@@ -159,7 +160,7 @@ This might be correct or misleading
 ```
 
 ## Optional description ######################################################
-This might have important notes.
+This is important notes about this commit
 ```
 {description}
 ```
