@@ -69,7 +69,7 @@ def main(
     while not skip_chat:
         # Get user input
         try:
-            user_input = input("\nYou: ")
+            user_input = input("\n\nYou: ")
         except (EOFError, KeyboardInterrupt):
             break
         if user_input.lower() in ["exit", "quit", "", "q"]:
