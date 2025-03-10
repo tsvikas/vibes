@@ -46,7 +46,7 @@ def main(
     Parameters
     ----------
     path
-        path to the repo.
+        the path of the repo.
     commit
         Commit-ish to analyze.
     description
