@@ -180,7 +180,7 @@ repos:
 
 # pre-commit.ci config
 ci:
-  autoupdate_commit_msg: "chore: update pre-commit hooks"
-  autofix_commit_msg: "style: pre-commit fixes"
+  autoupdate_commit_msg: "🔧 update pre-commit hooks"
+  autofix_commit_msg: "🎨 pre-commit fixes"
   skip: []
   autoupdate_schedule: quarterly
