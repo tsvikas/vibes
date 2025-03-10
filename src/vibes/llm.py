@@ -37,7 +37,7 @@ class ChatGPT(LLM):
         """Create a chat with OpenAI LLM."""
         api_key = api_key or os.getenv("OPENAI_API_KEY")
         assert api_key is not None  # noqa: S101
-        model = model or os.getenv("MODEL", "gpt-4o")
+        model = model or os.getenv("OPENAI_MODEL", "gpt-4o")
         assert model is not None  # noqa: S101
         self.client = OpenAI(api_key=api_key)
         self.model = model
@@ -70,7 +70,7 @@ class Claude(LLM):
         if api_key is None:
             api_key = os.getenv("ANTHROPIC_API_KEY")
         if model is None:
-            model = os.getenv("MODEL", "claude-3-7-sonnet-20250219")
+            model = os.getenv("ANTHROPIC_MODEL", "claude-3-7-sonnet-20250219")
 
         self.client = anthropic.Anthropic(api_key=api_key)
         self.model = model
