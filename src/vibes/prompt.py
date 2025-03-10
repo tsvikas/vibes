@@ -39,11 +39,9 @@ def get_repo_info(repo: git.Repo, commit_range: str) -> dict[str, str]:
     if commit_range:
         # Get commit range
         commit_range = commit_range.replace("@", "HEAD")
-        if ".." in commit_range:
-            commit_start, commit_end = commit_range.split("..")
-        else:
-            commit_start = commit_range + "~"
-            commit_end = commit_range
+        if ".." not in commit_range:
+            commit_range = f"{commit_range}~..{commit_range}"
+        commit_start, commit_end = commit_range.split("..")
         start_obj = commit_to_obj(commit_start, repo)
         end_obj = commit_to_obj(commit_end, repo)
 
