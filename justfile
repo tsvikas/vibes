@@ -58,3 +58,7 @@ pylint:
 # Run tests with pytest
 test:
   uv run pytest
+
+tag version:
+  git tag "v{{version}}" -am "version {{version}}"
+  git push --tags
