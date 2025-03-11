@@ -36,9 +36,15 @@ def split_commit_range(repo: git.Repo, commit_range: str) -> tuple[str, str]:
     except git.exc.BadName as e:
         if "not enough parent commits to reach" in str(e):
             # use the empty root object
-            commit_start = "4b825dc642cb6eb9a060e54bf8d69288fbee4904"  # SHA1 version
-            # SHA256 version:
-            # "6ef19b41225c5369f1c104d45d8d85efa9b057b53b14b4b9b939dd74decc5321"
+            object_format = repo.config_reader().get_value(
+                "extensions", "objectFormat", "sha1"
+            )
+            assert isinstance(object_format, str)  # noqa: S101
+            commit_start = {
+                "sha1": "4b825dc642cb6eb9a060e54bf8d69288fbee4904",
+                "sha256": "6ef19b41225c5369f1c104d45d8d85ef"
+                "a9b057b53b14b4b9b939dd74decc5321",
+            }[object_format]
         else:
             raise
     return commit_start, commit_end
