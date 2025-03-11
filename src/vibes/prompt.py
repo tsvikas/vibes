@@ -72,6 +72,7 @@ def get_repo_info(repo: git.Repo, commit_range: str) -> dict[str, str]:
         # use staging area or working directory
         # Get diff
         git_diff = repo.git.diff("--cached") or repo.git.diff()
+        # FIX: it ignores untracked files
         if not git_diff:
             return get_repo_info(repo, "HEAD")
 
