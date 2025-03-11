@@ -1,5 +1,6 @@
 """Tests for the prompt module."""
 
+import sys
 from pathlib import Path
 from textwrap import dedent
 
@@ -7,6 +8,9 @@ import git
 import pytest
 
 from vibes.prompt import get_prompt, get_repo_info
+
+if sys.platform.startswith("win"):
+    pytest.skip("skipping non-windows tests", allow_module_level=True)
 
 
 class GitRepo:
