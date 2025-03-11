@@ -21,6 +21,9 @@ class GitRepo:
 def git_repo(tmp_path: Path) -> GitRepo:
     """Get a GitRepo."""
     repo = GitRepo(tmp_path, init=True)
+    repo.repo.config_writer("repository").set_value(
+        "diff", "mnemonicPrefix", "true"
+    ).release()
     sample_file = repo.path.joinpath("sample_file")
     sample_file_content = []
     # commit 1
