@@ -49,3 +49,7 @@ indent_style = tab
 indent_style = tab
 trim_trailing_whitespace = false
 insert_final_newline = false
+
+[tests/test_prompt.py]
+# ignore indent_size for this file
+indent_size = 1
