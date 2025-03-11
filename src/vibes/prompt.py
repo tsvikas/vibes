@@ -22,16 +22,26 @@ def list_files_in_commit(commit: git.Commit) -> list[str]:
     return file_list
 
 
-def commit_to_obj(commit: str, repo: git.Repo) -> git.Commit:
-    """Convert a commit-ish to commit object."""
+def split_commit_range(repo: git.Repo, commit_range: str) -> tuple[str, str]:
+    """Split a commit range to start and end.
+
+    Handle a single commit, and a commit to the empty object
+    """
+    if ".." not in commit_range:
+        commit_range = f"{commit_range}~..{commit_range}"
+    commit_start, commit_end = commit_range.split("..")
+    # fix for commit before first commit
     try:
-        commit_obj = repo.commit(commit)
+        _commit_start_hexsha = repo.commit(commit_start).hexsha
     except git.exc.BadName as e:
         if "not enough parent commits to reach" in str(e):
-            # return the root object
-            return repo.commit("4b825dc642cb6eb9a060e54bf8d69288fbee4904")
-        raise
-    return commit_obj
+            # use the empty root object
+            commit_start = "4b825dc642cb6eb9a060e54bf8d69288fbee4904"  # SHA1 version
+            # SHA256 version:
+            # "6ef19b41225c5369f1c104d45d8d85efa9b057b53b14b4b9b939dd74decc5321"
+        else:
+            raise
+    return commit_start, commit_end
 
 
 def get_repo_info(repo: git.Repo, commit_range: str) -> dict[str, str]:
@@ -39,21 +49,18 @@ def get_repo_info(repo: git.Repo, commit_range: str) -> dict[str, str]:
     if commit_range:
         # Get commit range
         commit_range = commit_range.replace("@", "HEAD")
-        if ".." not in commit_range:
-            commit_range = f"{commit_range}~..{commit_range}"
-        commit_start, commit_end = commit_range.split("..")
-        start_obj = commit_to_obj(commit_start, repo)
-        end_obj = commit_to_obj(commit_end, repo)
+        commit_start, commit_end = split_commit_range(repo, commit_range)
 
         # Get diff
-        git_diff = repo.git.diff(start_obj.hexsha, end_obj.hexsha)
+        git_diff = repo.git.diff(commit_start, commit_end)
 
         # Get ls-files
-        git_ls_files = list_files_in_commit(end_obj)
+        git_ls_files = list_files_in_commit(repo.commit(commit_end))
 
         # Get commit message
         message = "\n\n".join(
-            str(commit.message) for commit in repo.iter_commits(commit_range)
+            str(commit.message)
+            for commit in repo.iter_commits(f"{commit_start}..{commit_end}")
         )
     else:
         # use staging area or working directory
