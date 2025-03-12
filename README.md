@@ -6,10 +6,6 @@
 [![Ruff][ruff-badge]][ruff-link]
 [![Black][black-badge]][black-link]
 \
-[![PyPI version][pypi-version-badge]][pypi-link]
-[![PyPI platforms][pypi-platforms-badge]][pypi-link]
-[![Total downloads][pepy-badge]][pepy-link]
-\
 [![Made Using tsvikas/python-template][template-badge]][template-link]
 [![GitHub Discussion][github-discussions-badge]][github-discussions-link]
 [![PRs Welcome][prs-welcome-badge]][prs-welcome-link]
@@ -18,19 +14,29 @@
 
 Get a commit message from ChatGPT, with emojies ✨.
 
-## Usage
+### Installation
 
-Install the package using pip, or with a dependency manager like uv:
+- Clone the repo
+- Set-up a `.env` file
+- Use uv to create a venv
+- Link to .venv/bin/vibes
 
-```bash
-pip install vibes
-```
+Future improvements: Streamlined installation method.
 
-and import the package in your code:
+### Usage
 
-```python
-import vibes
-```
+Just run `vibes` in your git repo, to get an LLM to suggest a commit message for
+your current changes (the index, or the working directory, or the last commit)
+
+Use `-r` to specify a path to the repo (default `.`).
+Use `-c` to specify a specific commit, or a commit range.
+Use `-d` to describe the change to the LLM yourself.
+
+You can chat with the LLM and request changes.
+When you finish, end the conversation (^C, ^D, exit, quit, or Enter)
+and use the message.
+
+Future improvements: The ability to control the prompt, and the template.
 
 ## Development
 
@@ -54,13 +60,8 @@ import vibes
 [github-discussions-link]: https://github.com/tsvikas/vibes/discussions
 [install-git]: https://git-scm.com/book/en/v2/Getting-Started-Installing-Git
 [install-uv]: https://docs.astral.sh/uv/getting-started/installation/
-[pepy-badge]: https://img.shields.io/pepy/dt/vibes
-[pepy-link]: https://pepy.tech/project/vibes
 [prs-welcome-badge]: https://img.shields.io/badge/PRs-welcome-brightgreen.svg
 [prs-welcome-link]: http://makeapullrequest.com
-[pypi-link]: https://pypi.org/project/vibes/
-[pypi-platforms-badge]: https://img.shields.io/pypi/pyversions/vibes
-[pypi-version-badge]: https://img.shields.io/pypi/v/vibes
 [rtd-badge]: https://readthedocs.org/projects/vibes/badge/?version=latest
 [rtd-link]: https://vibes.readthedocs.io/en/latest/?badge=latest
 [ruff-badge]: https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json
