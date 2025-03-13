@@ -12,7 +12,7 @@
 
 ## Overview
 
-Get a commit message from ChatGPT or Claude, with emojies ✨.\
+Get a commit message from ChatGPT or Claude, with [gitmoji](https://gitmoji.dev/) ✨.\
 Talk to the AI and request changes, until you're happy with the message.
 
 ![Screenshot](assets/screenshot.png)
