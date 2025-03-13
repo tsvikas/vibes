@@ -1,7 +1,6 @@
 # vibes
 
 [![Tests][tests-badge]][tests-link]
-[![Documentation Status][rtd-badge]][rtd-link]
 [![uv][uv-badge]][uv-link]
 [![Ruff][ruff-badge]][ruff-link]
 [![Black][black-badge]][black-link]
@@ -65,8 +64,6 @@ Future improvements: The ability to control the prompt, and the template.
 [install-uv]: https://docs.astral.sh/uv/getting-started/installation/
 [prs-welcome-badge]: https://img.shields.io/badge/PRs-welcome-brightgreen.svg
 [prs-welcome-link]: http://makeapullrequest.com
-[rtd-badge]: https://readthedocs.org/projects/vibes/badge/?version=latest
-[rtd-link]: https://vibes.readthedocs.io/en/latest/?badge=latest
 [ruff-badge]: https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json
 [ruff-link]: https://github.com/astral-sh/ruff
 [template-badge]: https://img.shields.io/badge/%F0%9F%9A%80_Made_Using-tsvikas%2Fpython--template-gold
