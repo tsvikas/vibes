@@ -12,7 +12,10 @@
 
 ## Overview
 
-Get a commit message from ChatGPT, with emojies ✨.
+Get a commit message from ChatGPT or Claude, with emojies ✨.\
+Talk to the AI and request changes, until you're happy with the message.
+
+![Screenshot](assets/screenshot.png)
 
 ### Installation
 
