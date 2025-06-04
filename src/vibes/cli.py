@@ -46,7 +46,7 @@ def main(
         don't start a chat with the LLM
     """
     try:
-        repo = git.Repo(path)
+        repo = git.Repo(path, search_parent_directories=True)
     except git.exc.InvalidGitRepositoryError:
         print(f"Error: {path} is not a valid git repository", file=sys.stderr)
         sys.exit(1)
