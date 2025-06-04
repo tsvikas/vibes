@@ -16,7 +16,7 @@ Talk to the AI and request changes, until you're happy with the message.
 
 ![Screenshot](assets/screenshot.png)
 
-### Installation
+## Install
 
 - Clone the repo
 - Set-up a `.env` file
@@ -30,7 +30,7 @@ Future improvements: Streamlined installation method.
 pip install vibes
 -->
 
-### Usage
+## Usage
 
 Just run `vibes` in your git repo, to get an LLM to suggest a commit message for
 your current changes (the index, or the working directory, or the last commit)
