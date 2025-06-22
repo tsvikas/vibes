@@ -212,7 +212,7 @@ def test_get_prompt(git_repo: GitRepo) -> None:
     description = "Test description"
     prompt = get_prompt(git_repo.repo, "HEAD", description)
     expected_prompt_end = dedent(
-        """
+        """\
 ## README ####################################################################
 ```
 This is the README file
