@@ -1,10 +1,12 @@
 """Create a commit message prompt based on the current git state."""
 
 import git
+from langchain_core.prompts import PromptTemplate
 
 from vibes.resources import prompt_md
 
-MESSAGE_FORMAT = prompt_md.read_text(encoding="utf-8")
+MESSAGE_FORMAT_STR = prompt_md.read_text(encoding="utf-8")
+MESSAGE_FORMAT = PromptTemplate.from_template(MESSAGE_FORMAT_STR)
 
 
 def list_files_in_commit(commit: git.Commit) -> list[str]:

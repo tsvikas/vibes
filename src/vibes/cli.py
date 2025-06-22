@@ -1,5 +1,6 @@
 """Get a commit message from ChatGPT, with emojies! ✨."""
 
+import os
 import sys
 from pathlib import Path
 from typing import Annotated
@@ -7,8 +8,9 @@ from typing import Annotated
 import git
 from cyclopts import App, Parameter, validators
 from dotenv import load_dotenv
+from langchain.chat_models import init_chat_model
+from langchain_core.messages import BaseMessage, HumanMessage
 
-from vibes.llm import get_chat
 from vibes.prompt import get_prompt
 
 load_dotenv()
@@ -60,10 +62,16 @@ def main(
         print(prompt)
         return
 
-    chat = get_chat()
+    chat_model = init_chat_model(
+        model=os.getenv("VIBES_MODEL", "gpt-4o"),
+        model_provider=os.getenv("VIBES_PROVIDER", "openai"),
+        api_key=os.getenv("VIBES_API_KEY"),
+    )
 
-    assistant_reply = chat.get_reply(prompt)
-    print(assistant_reply)
+    messages: list[BaseMessage] = [HumanMessage(content=prompt)]
+    response = chat_model.invoke(messages)
+    print(response.content)
+    messages.append(response)
 
     # REPL loop
     while not skip_chat:
@@ -75,9 +83,11 @@ def main(
         if user_input.lower() in ["exit", "quit", "", "q"]:
             break
         # Get assistant reply
-        assistant_reply = chat.get_reply(user_input)
+        messages.append(HumanMessage(content=user_input))
+        response = chat_model.invoke(messages)
+        messages.append(response)
         print()
-        print(assistant_reply)
+        print(response.content)
 
 
 if __name__ == "__main__":
