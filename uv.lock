@@ -1520,6 +1520,7 @@ dependencies = [
     { name = "gitpython" },
     { name = "langchain", extra = ["anthropic", "google-genai", "openai"] },
     { name = "openai" },
+    { name = "platformdirs" },
     { name = "python-dotenv" },
 ]
 
@@ -1553,6 +1554,7 @@ requires-dist = [
     { name = "gitpython", specifier = ">=3.1.44" },
     { name = "langchain", extras = ["anthropic", "google-genai", "openai"], specifier = ">=0.3.26" },
     { name = "openai", specifier = ">=1.61.1" },
+    { name = "platformdirs", specifier = ">=4.0.0" },
     { name = "python-dotenv", specifier = ">=1.0.1" },
 ]
 

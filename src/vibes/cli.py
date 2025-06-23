@@ -1,19 +1,17 @@
 """Get a commit message from ChatGPT, with emojies! ✨."""
 
-import os
 import sys
 from pathlib import Path
 from typing import Annotated
 
 import git
 from cyclopts import App, Parameter, validators
-from dotenv import load_dotenv
 from langchain.chat_models import init_chat_model
 from langchain_core.messages import BaseMessage, HumanMessage
 
+from vibes import config
 from vibes.prompt import get_prompt
 
-load_dotenv()
 app = App()
 
 
@@ -63,9 +61,9 @@ def main(
         return
 
     chat_model = init_chat_model(
-        model=os.getenv("VIBES_MODEL", "gpt-4o"),
-        model_provider=os.getenv("VIBES_PROVIDER", "openai"),
-        api_key=os.getenv("VIBES_API_KEY"),
+        model=config.get_model(),
+        model_provider=config.get_provider(),
+        api_key=config.get_api_key(),
     )
 
     messages: list[BaseMessage] = [HumanMessage(content=prompt)]
