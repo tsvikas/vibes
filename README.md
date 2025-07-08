@@ -25,11 +25,6 @@ Talk to the AI and request changes, until you're happy with the message.
 
 Future improvements: Streamlined installation method.
 
-<!---
-# TODO: replace with this after uploading to PyPI:
-pip install vibes
--->
-
 ## Usage
 
 Just run `vibes` in your git repo, to get an LLM to suggest a commit message for
@@ -63,32 +58,6 @@ Future improvements: The ability to control the prompt, and the template.
 - use `uv run just check` to run all the checks (format, lint, test, and pre-commit).
 - Run a specific tool directly, with
   `uv run pytest`/`ruff`/`mypy`/`black`/`pre-commit`/...
-
-<!--- Badges to add after adding RTD documentation
-[![Documentation Status][rtd-badge]][rtd-link]
-
-[rtd-badge]: https://readthedocs.org/projects/vibes/badge/?version=latest
-[rtd-link]: https://vibes.readthedocs.io/en/latest/?badge=latest
--->
-
-<!--- Badges to add after writing tests. Also follow the link to finish setup
-[![codecov][codecov-badge]][codecov-link]
-
-[codecov-badge]: https://codecov.io/gh/tsvikas/vibes/graph/badge.svg
-[codecov-link]: https://codecov.io/gh/tsvikas/vibes
--->
-
-<!--- Badges to add after uploading to PyPI
-[![PyPI version][pypi-version-badge]][pypi-link]
-[![PyPI platforms][pypi-platforms-badge]][pypi-link]
-[![Total downloads][pepy-badge]][pepy-link]
-
-[pepy-badge]: https://img.shields.io/pepy/dt/vibes
-[pepy-link]: https://pepy.tech/project/vibes
-[pypi-link]: https://pypi.org/project/vibes/
-[pypi-platforms-badge]: https://img.shields.io/pypi/pyversions/vibes
-[pypi-version-badge]: https://img.shields.io/pypi/v/vibes
--->
 
 [black-badge]: https://img.shields.io/badge/code%20style-black-000000.svg
 [black-link]: https://github.com/psf/black
