@@ -34,6 +34,8 @@ Use `-r` to specify a path to the repo (default `.`).
 Use `-c` to specify a specific commit, or a commit range.
 Use `-d` to describe the change to the LLM yourself.
 
+Use `vibes --help` to learn more.
+
 You can chat with the LLM and request changes.
 When you finish, end the conversation (^C, ^D, exit, quit, or Enter)
 and use the message.
