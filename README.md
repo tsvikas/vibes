@@ -4,6 +4,7 @@
 [![uv][uv-badge]][uv-link]
 [![Ruff][ruff-badge]][ruff-link]
 [![Black][black-badge]][black-link]
+[![codecov][codecov-badge]][codecov-link]
 \
 [![Made Using tsvikas/python-template][template-badge]][template-link]
 [![GitHub Discussion][github-discussions-badge]][github-discussions-link]
@@ -63,6 +64,8 @@ Future improvements: The ability to control the prompt, and the template.
 
 [black-badge]: https://img.shields.io/badge/code%20style-black-000000.svg
 [black-link]: https://github.com/psf/black
+[codecov-badge]: https://codecov.io/gh/tsvikas/vibes/graph/badge.svg
+[codecov-link]: https://codecov.io/gh/tsvikas/vibes
 [github-discussions-badge]: https://img.shields.io/static/v1?label=Discussions&message=Ask&color=blue&logo=github
 [github-discussions-link]: https://github.com/tsvikas/vibes/discussions
 [install-git]: https://git-scm.com/book/en/v2/Getting-Started-Installing-Git
