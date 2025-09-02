@@ -38,9 +38,16 @@ MANIFEST
 
 # End of https://www.toptal.com/developers/gitignore/api/pythonvanilla
 
+
+
+
 # virtual envs
 venv/
 .venv/
+
+# mkdocs documentation
+/site
+/docs/reference
 
 # development tools
 .mypy_cache/
@@ -56,5 +63,6 @@ venv/
 
 # TODO
 TODO*
+
 
 # specific to this project:

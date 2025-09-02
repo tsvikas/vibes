@@ -10,7 +10,6 @@ description = "Get a commit message from ChatGPT, with emojies ✨."
 license = "MIT"
 license-files = ["LICEN[CS]E.*"]
 readme = "README.md"
-requires-python = ">=3.13"
 authors = [
   {name = "Tsvika Shapira", email = "tsvikas@gmail.com"}
 ]
@@ -31,6 +30,15 @@ classifiers = [
   "Programming Language :: Python :: 3.13",
   "Typing :: Typed",
 ]
+# urls.homepage = "https://vibes.readthedocs.io"
+urls.source = "https://github.com/tsvikas/vibes"
+urls.changelog = "https://github.com/tsvikas/vibes/blob/main/CHANGELOG.md"
+# urls.releasenotes = "https://github.com/tsvikas/vibes/releases"
+# urls.documentation = "https://vibes.readthedocs.io"
+urls.issues = "https://github.com/tsvikas/vibes/issues"
+# urls.funding = "https://github.com/sponsors/tsvikas"
+
+requires-python = ">=3.13"
 dependencies = [
   "anthropic>=0.49.0",
   "cyclopts>=3.7.0",
@@ -43,15 +51,6 @@ dependencies = [
 
 [project.optional-dependencies]
 # optional_name = ["some_package >=1.0"]
-
-[project.urls]
-# homepage = "https://vibes.readthedocs.io"
-source = "https://github.com/tsvikas/vibes"
-changelog = "https://github.com/tsvikas/vibes/blob/main/CHANGELOG.md"
-# releasenotes = "https://github.com/tsvikas/vibes/releases"
-# documentation = "https://vibes.readthedocs.io"
-issues = "https://github.com/tsvikas/vibes/issues"
-# funding = "https://github.com/sponsors/tsvikas"
 
 [project.scripts]
 vibes = "vibes.cli:app"
@@ -97,7 +96,14 @@ test = [
   "pytest-mock ~=3.3",
   # "pytest-regressions ~=2.0",
 ]
-# docs = []
+docs = [
+  "mkdocs ~=1.0",
+  "mkdocs-material ~=9.0",
+  "mkdocstrings-python ~=1.0",
+  "mkdocs-gen-files ~=0.5.0",
+  "mkdocs-literate-nav ~=0.6.0",
+  "mkdocs-section-index ~=0.3.0",
+]
 typing = [
   "mypy ~=1.17.0",
   # add "*-stubs" and "types-*" packages here (">=0")
@@ -110,6 +116,10 @@ version.path = "src/vibes/__init__.py"
 
 [tool.pytest.ini_options]
 minversion = "7.0"
+testpaths = [
+  "src/",
+  "tests/",
+]
 addopts = [
   ## testing
   "--doctest-modules",
