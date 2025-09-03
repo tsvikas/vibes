@@ -232,6 +232,10 @@ flake8-comprehensions.allow-dict-calls-with-keyword-arguments = true
 "src/vibes/cli.py" = [
   "T20",      # flake8-print
 ]
+"scripts/*.py" = [
+  "T20",      # flake8-print
+  "INP001",   # implicit-namespace-package
+]
 "!tests/test_*.py" = [
   "PT",       # flake8-pytest-style
 ]
