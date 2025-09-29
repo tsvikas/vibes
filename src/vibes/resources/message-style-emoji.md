@@ -38,111 +38,129 @@ Were there decisions you made that aren't reflected in the source code? etc.
 Be concise and clear. DO NOT BOAST.
 
 ## Available Commit Types and Emojis
-```
-# API changes
-## feat: A new feature
-✨:sparkles:Introduce new features.
-💄:lipstick:Add or update the UI and style files.
-📈:chart-with-upwards-trend:Add or update analytics or track code.
-🌐:globe-with-meridians:Internationalization and localization.
-🍱:bento:Add or update assets.
-♿️:wheelchair:Improve accessibility.
-💬:speech-balloon:Add or update text and literals.
-🔊:loud-sound:Add or update logs.
-🔇:mute:Remove logs.
-🚸:children-crossing:Improve user experience / usability.
-🥚:egg:Add or update an easter egg.
-💫:dizzy:Add or update animations and transitions.
-🛂:passport-control:Work on code related to authorization, roles and permissions.
-👔:necktie:Add or update business logic.
-💸:money-with-wings:Add sponsorships or money related infrastructure.
 
-## fix: A bug fix
-🐛:bug:Fix a bug.
-🚑️:ambulance:Critical hotfix.
-🔒️:lock:Fix security or privacy issues.
-🚨:rotating-light:Fix compiler / linter warnings.
-💚:green-heart:Fix CI Build.
-✏️:pencil2:Fix typos.
-👽️:alien:Update code due to external API changes.
-🥅:goal-net:Catch errors.
-🩹:adhesive-bandage:Simple fix for a non-critical issue.
+### User-facing changes, changes that are added to changelog
 
-# code changes
-## perf: A code change that improves performance
-⚡️:zap:Improve performance.
-📱:iphone:Work on responsive design.
-🔍️:mag:Improve SEO.
-🧵:thread:Add or update code related to multithreading or concurrency.
+#### New feature
+✨ = Introduce new features.
+🚩 = Add, update, or remove feature flags.
+👔 = Add or update business logic.
+🥚 = Add or update an easter egg.
 
-## refactor: A code change that neither fixes a bug nor adds a feature
-🔥:fire:Remove code or files.
-♻️:recycle:Refactor code.
-🚚:truck:"Move or rename resources (e.g.: files, paths, routes)."
-🏗️:building-construction:Make architectural changes.
-🏷️:label:Add or update types.
-🗑️:wastebasket:Deprecate code that needs to be cleaned up.
-⚰️:coffin:Remove dead code.
+#### Bug fix
+🐛 = Fix a bug.
+🚑️ = Critical hotfix.
+🩹 = Simple fix for a non-critical issue.
+🚨 = Fix compiler / linter warnings.
 
-## style: Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc)
-🎨:art:Improve structure / format of the code.
+#### Improve performance
+⚡️ = Improve performance.
+🔍️ = Improve SEO.
 
-# code adjecnt changes
-## docs: Documentation only changes
-📝:memo:Add or update documentation.
-📄:page-facing-up:Add or update license.
-💡:bulb:Add or update comments in source code.
-👥:busts-in-silhouette:Add or update contributor(s).
+#### Documentation only changes
+📝 = Add or update documentation.
+📄 = Add or update license.
+💡 = Add or update comments in source code.
+👥 = Add or update contributor(s).
+✏️ = Fix typos.
 
-## test: Adding missing tests or correcting existing tests
-✅:white-check-mark:Add, update, or pass tests.
-🤡:clown-face:Mock things.
-⚗️:alembic:Perform experiments.
-🌱:seedling:Add or update seed files.
-🧐:monocle-face:Data exploration/inspection.
-🧪:test-tube:Add a failing test.
-🦺:safety-vest:Add or update code related to validation.
+#### UI/UX:
+💄 = Add or update the UI and style files.
+📱 = Work on responsive design.
+🚸 = Improve user experience / usability.
+💫 = Add or update animations and transitions.
+🍱 = Add or update assets.
+♿️ = Improve accessibility.
+💬 = Add or update text and literals.
+🌐 = Internationalization and localization.
 
-# non-code changes
-## build: Changes that affect the build system or external dependencies (example scopes: gulp, broccoli, npm)
-🔐:closed-lock-with-key:Add or update secrets.
-⬇️:arrow-down:Downgrade dependencies.
-⬆️:arrow-up:Upgrade dependencies.
-📌:pushpin:Pin dependencies to specific versions.
-➕:heavy-plus-sign:Add a dependency.
-➖:heavy-minus-sign:Remove a dependency.
-📦️:package:Add or update compiled files or packages.
-📸:camera-flash:Add or update snapshots.
+#### Error Handling & Validation
+🦺 = Add or update code related to validation.
+🥅 = Catch errors.
 
-## ci: Changes to our CI configuration files and scripts (example scopes: Travis, Circle, BrowserStack, SauceLabs)
-👷:construction-worker:Add or update CI build system.
+#### Security & Authentication
+🛂 = Work on code related to authorization, roles and permissions.
+🔒️ = Fix security or privacy issues.
 
-## chore: Other changes that don't modify src or test files
-🚀:rocket:Deploy stuff.
-🎉:tada:Begin a project.
-🔖:bookmark:Release / Version tags.
-🔧:wrench:Add or update configuration files.
-🔨:hammer:Add or update development scripts.
-🗃️:card-file-box:Perform database related changes.
-🙈:see-no-evil:Add or update a .gitignore file.
-🚩:triangular-flag-on-post:Add, update, or remove feature flags.
-🩺:stethoscope:Add or update healthcheck.
-🧱:bricks:Infrastructure related changes.
-🧑‍💻:technologist:Improve developer experience.
 
-# special git commits
-## revert:
-⏪️:rewind:Revert changes.
+### Code changes (that the user shouldn't notice)
 
-## merge:
-🔀:twisted-rightwards-arrows:Merge branches.
+#### refactor: A code change that neither fixes a bug nor adds a feature
+♻️ = Refactor code.
+🏷️ = Add or update types.
+🚚 = Move or rename resources (files, paths, routes, etc).
+🔥 = Remove code or files.
+🗑️ = Deprecate code that needs to be cleaned up.
+⚰️ = Remove dead code.
 
-# additional icons
-## code-rank:
-🚧:construction:Work in progress.
-💩:poop:Write bad code that needs to be improved.
-🍻:beers:Write code drunkenly.
+#### style: Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc)
+🎨 = Improve structure / format of the code.
 
-## api-rank
-💥:boom:Introduce breaking changes.
-```
+#### Infrastructure & Architecture
+🧵 = Add or update code related to multithreading or concurrency.
+🧱 = Infrastructure related changes.
+🗃️ = Perform database related changes.
+👽️ = Update code due to external API changes.
+💸 = Add sponsorships or money related infrastructure.
+🏗️ = Make architectural changes.
+
+#### Monitoring & Logging
+🔊 = Add or update logs.
+🔇 = Remove logs.
+📈 = Add or update analytics or track code.
+🩺 = Add or update healthcheck.
+
+
+### Developer-facing changes (don't affect the user delivered parts at all)
+
+#### test: Adding missing tests or correcting existing tests
+✅ = Add, update, or pass tests.
+🧪 = Add a failing test.
+🤡 = Mock things.
+📸 = Add or update snapshots.
+🌱 = Add or update seed files.
+
+#### build: Changes that affect the build system or external dependencies
+⬇️ = Downgrade dependencies.
+⬆️ = Upgrade dependencies.
+📌 = Pin dependencies to specific versions.
+➕ = Add a dependency.
+➖ = Remove a dependency.
+📦️ = Add or update compiled files or packages.
+
+#### ci: Changes to our CI configuration files and scripts
+👷 = Add or update CI build system.
+💚 = Fix CI Build.
+
+#### chore: Other changes that don't modify src or test files
+🔧 = Add or update configuration files.
+🔨 = Add or update development scripts.
+🙈 = Add or update a .gitignore file.
+🧑‍💻 = Improve developer experience.
+🔐 = Add or update secrets.
+
+#### Project Lifecycle
+🎉 = Begin a project.
+🔖 = Release / Version tags.
+🚀 = Deploy stuff.
+
+#### Version Control
+🔀 = Merge branches.
+⏪️ = Revert changes.
+
+#### Data Analysis
+⚗️ = Perform experiments.
+🧐 = Data exploration/inspection.
+
+
+### Additional tags (add those as needed)
+
+#### Notices
+💥 = Introduce breaking changes.
+
+#### Code Status
+🚧 = Work in progress.
+
+#### Code Quality
+🍻 = Write code drunkenly.
+💩 = Write bad code that needs to be improved.
