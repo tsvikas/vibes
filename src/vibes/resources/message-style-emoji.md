@@ -3,8 +3,8 @@
 ## Format Structure
 The commit message should follow this structure:
 1. First line: <emoji> [(optional scope)] <short description>
-   - Emoji: 1-3 relevant emojis (preferably 1)
-   - Scope: optional, in parentheses
+   - Emoji: 1-3 relevant emojis (preferably 1). prefer specific emoji to a general one.
+   - Scope: optional, in parentheses, only if not communicated from the emoji.
    - Description: concise summary.
 2. Blank line
 3. Body: detailed description.
@@ -34,6 +34,8 @@ If relevant, include background information such as bug numbers, benchmark resul
 Why are these changes being made?
 What contexts did you have as an author when making this change?
 Were there decisions you made that aren't reflected in the source code? etc.
+
+Be concise and clear. DO NOT BOAST.
 
 ## Available Commit Types and Emojis
 ```
