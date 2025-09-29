@@ -55,8 +55,8 @@ def get_model(provider: str | None = None) -> str:
     target_provider = provider or get_provider()
 
     defaults = {
-        "openai": "gpt-4.1",
-        "anthropic": "claude-sonnet-4-0",
+        "openai": "gpt-5",
+        "anthropic": "claude-sonnet-4-5",
         "google": "gemini-2.5-pro",
     }
 
