@@ -1,3 +1,4 @@
+import os
 from unittest.mock import Mock
 
 import pytest
@@ -26,5 +27,12 @@ def mock_openai_client(mocker: MockerFixture) -> Mock:
 def test_version(
     mock_openai_client: Mock, capsys: pytest.CaptureFixture[str]  # noqa: ARG001
 ) -> None:
-    app("--version")
+    force_color = os.getenv("FORCE_COLOR")
+    try:
+        if force_color:
+            del os.environ["FORCE_COLOR"]
+        app("--version")
+    finally:
+        if force_color:
+            os.environ["FORCE_COLOR"] = force_color
     assert capsys.readouterr().out.strip() == __version__
