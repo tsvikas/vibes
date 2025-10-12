@@ -46,13 +46,11 @@ def main(
         don't start a chat with the LLM
     """
     try:
-        repo = git.Repo(path, search_parent_directories=True)
+        with git.Repo(path, search_parent_directories=True) as repo:
+            prompt = get_prompt(repo, commit, description=description.strip())
     except git.exc.InvalidGitRepositoryError:
         print(f"Error: {path} is not a valid git repository", file=sys.stderr)
         sys.exit(1)
-
-    try:
-        prompt = get_prompt(repo, commit, description=description.strip())
     except git.exc.BadName as e:
         print("Error:", str(e), file=sys.stderr)
         sys.exit(1)

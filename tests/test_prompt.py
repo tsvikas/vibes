@@ -1,6 +1,7 @@
 """Tests for the prompt module."""
 
 import sys
+from collections.abc import Generator
 from pathlib import Path
 from textwrap import dedent
 
@@ -22,12 +23,12 @@ class GitRepo:
 
 
 @pytest.fixture
-def git_repo(tmp_path: Path) -> GitRepo:
+def git_repo(tmp_path: Path) -> Generator[GitRepo]:
     """Get a GitRepo."""
     repo = GitRepo(tmp_path, init=True)
-    repo.repo.config_writer("repository").set_value(
-        "diff", "mnemonicPrefix", "true"
-    ).release()
+    config_writer = repo.repo.config_writer("repository")
+    config_writer.set_value("diff", "mnemonicPrefix", "true")
+    config_writer.release()
     sample_file = repo.path.joinpath("sample_file")
     sample_file_content = []
     # commit 1
@@ -47,7 +48,9 @@ def git_repo(tmp_path: Path) -> GitRepo:
     sample_file.write_text("\n".join(sample_file_content) + "\n")
     repo.repo.index.add([str(sample_file)])
     repo.repo.index.commit(message="commit #3")
-    return repo
+    yield repo
+    # Cleanup: close the repo to terminate all subprocesses
+    repo.repo.close()
 
 
 def test_get_repo_info_with_commit_range(git_repo: GitRepo) -> None:
