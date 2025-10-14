@@ -41,7 +41,7 @@ urls.issues = "https://github.com/tsvikas/vibes/issues"
 
 requires-python = ">=3.13"
 dependencies = [
-  "cyclopts>=3.7.0",
+  "cyclopts>=4.0.0b1",
   "gitpython>=3.1.44",
   "langchain-core>=0",
   "langchain[anthropic,google-genai,openai]>=0.3.26",
