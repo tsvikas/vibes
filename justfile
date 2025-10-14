@@ -102,8 +102,6 @@ test-lowest python:
 release version: (_assert-legal-version version)
   [ -z "$(git status --porcelain)" ]
   just _check
-  uvx hatch version {{version}}
-  git add "src/vibes/__init__.py"
   sed -i "s/## Unreleased/## Unreleased\n\n## v{{version}}/" CHANGELOG.md
   git add CHANGELOG.md
   git commit -m "Release v{{version}}"

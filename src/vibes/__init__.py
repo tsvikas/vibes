@@ -3,5 +3,7 @@
 © 2025 Tsvika Shapira. Some rights reserved.
 """
 
-__version__ = "0.1.0+dev"
+from ._version import version as _version
+
+__version__ = _version
 __all__: list[str] = []

@@ -1,5 +1,5 @@
 [build-system]
-requires = ["hatchling"]
+requires = ["hatchling", "hatch-vcs"]
 build-backend = "hatchling.build"
 
 
@@ -110,7 +110,8 @@ typing = [
 
 
 [tool.hatch]
-version.path = "src/vibes/__init__.py"
+version.source = "vcs"
+build.hooks.vcs.version-file = "src/vibes/_version.py"
 
 
 [tool.pytest.ini_options]
@@ -152,6 +153,7 @@ log_cli_level = "INFO"
 [tool.coverage]
 run.omit = [
   "src/vibes/__main__.py",
+  "src/vibes/_version.py",
 ]
 
 
@@ -239,6 +241,9 @@ flake8-comprehensions.allow-dict-calls-with-keyword-arguments = true
 "src/vibes/cli.py" = [
   "T20",      # flake8-print
 ]
+"src/vibes/_version.py" = [
+  "ALL",
+]
 "scripts/*.py" = [
   "T20",      # flake8-print
   "INP001",   # implicit-namespace-package
@@ -259,4 +264,5 @@ flake8-comprehensions.allow-dict-calls-with-keyword-arguments = true
 
 [tool.pylint]
 py-version = "3.13"
+ignore-paths = [".*/_version.py"]
 reports.output-format = "colorized"
