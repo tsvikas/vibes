@@ -30,7 +30,7 @@ def main(
     only_prompt: bool = False,
     skip_chat: Annotated[bool, Parameter(name=("--skip-chat", "-s"))] = False,
 ) -> None:
-    """Create a prompt to ask for a commit message.
+    """Ask the model for a commit message.
 
     Parameters
     ----------
