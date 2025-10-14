@@ -13,6 +13,7 @@ from vibes import config
 from vibes.prompt import get_prompt
 
 app = App()
+app.register_install_completion_command()
 
 
 @app.default()
