@@ -25,10 +25,10 @@ def main(
         ),
     ] = Path(),
     *,
-    commit: Annotated[str, Parameter(name=("--commit", "-c"))] = "",
-    description: Annotated[str, Parameter(name=("--description", "-d"))] = "",
+    commit: Annotated[str, Parameter(alias=("-c"))] = "",
+    description: Annotated[str, Parameter(alias=("-d"))] = "",
     only_prompt: bool = False,
-    skip_chat: Annotated[bool, Parameter(name=("--skip-chat", "-s"))] = False,
+    skip_chat: Annotated[bool, Parameter(alias=("-s"))] = False,
 ) -> None:
     """Ask the model for a commit message.
 
