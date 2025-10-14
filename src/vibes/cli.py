@@ -20,10 +20,10 @@ def main(
     path: Annotated[
         Path,
         Parameter(
-            name=("repo", "-r"), validator=validators.Path(exists=True, file_okay=False)
+            name=("--repo", "-r"),
+            validator=validators.Path(exists=True, file_okay=False),
         ),
     ] = Path(),
-    /,
     *,
     commit: Annotated[str, Parameter(name=("--commit", "-c"))] = "",
     description: Annotated[str, Parameter(name=("--description", "-d"))] = "",
