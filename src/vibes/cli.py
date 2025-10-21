@@ -28,7 +28,7 @@ def main(
     *,
     commit: Annotated[str, Parameter(alias=("-c"))] = "",
     description: Annotated[str, Parameter(alias=("-d"))] = "",
-    only_prompt: bool = False,
+    only_prompt: Annotated[bool, Parameter(negative="")] = False,
     skip_chat: Annotated[bool, Parameter(alias=("-s"))] = False,
 ) -> None:
     """Ask the model for a commit message.
