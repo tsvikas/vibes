@@ -12,7 +12,7 @@ from langchain_core.messages import BaseMessage, HumanMessage
 from vibes import config
 from vibes.prompt import get_prompt
 
-app = App()
+app = App(name="vibes")
 app.register_install_completion_command()
 
 
@@ -85,7 +85,3 @@ def main(
         messages.append(response)
         print()
         print(response.content)
-
-
-if __name__ == "__main__":
-    app()
