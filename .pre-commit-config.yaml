@@ -115,7 +115,6 @@ repos:
           |resources/.*\.md$
         additional_dependencies:
           - mdformat-gfm
-          - mdformat-frontmatter
           - mdformat-footnote
           - mdformat-gfm-alerts
 
