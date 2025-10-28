@@ -30,7 +30,7 @@ def main(
     description: Annotated[str, Parameter(alias=("-d"))] = "",
     only_prompt: Annotated[bool, Parameter(negative="")] = False,
     skip_chat: Annotated[bool, Parameter(alias=("-s"))] = False,
-) -> None:
+) -> int:
     """Ask the model for a commit message.
 
     Parameters
@@ -57,7 +57,7 @@ def main(
         sys.exit(1)
     if only_prompt:
         print(prompt)
-        return
+        return 0
 
     chat_model = init_chat_model(
         model=config.get_model(),
@@ -85,3 +85,4 @@ def main(
         messages.append(response)
         print()
         print(response.content)
+    return 0
