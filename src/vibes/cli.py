@@ -1,16 +1,27 @@
 """Get a commit message from ChatGPT, with emojies! ✨."""
 
 import sys
+import warnings
 from pathlib import Path
 from typing import Annotated
 
-import git
-from cyclopts import App, Parameter, validators
-from langchain.chat_models import init_chat_model
-from langchain_core.messages import BaseMessage, HumanMessage
+# Suppress Pydantic V1 compatibility warning in Python 3.14+
+warnings.filterwarnings(
+    "ignore",
+    message=(
+        "Core Pydantic V1 functionality isn't compatible with Python 3.14 or greater"
+    ),
+    category=UserWarning,
+    module="langchain_core._api.deprecation",
+)
 
-from vibes import config
-from vibes.prompt import get_prompt
+import git  # noqa: E402
+from cyclopts import App, Parameter, validators  # noqa: E402
+from langchain.chat_models import init_chat_model  # noqa: E402
+from langchain_core.messages import BaseMessage, HumanMessage  # noqa: E402
+
+from vibes import config  # noqa: E402
+from vibes.prompt import get_prompt  # noqa: E402
 
 app = App(name="vibes")
 app.register_install_completion_command()
