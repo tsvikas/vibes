@@ -19,12 +19,41 @@ Talk to the AI and request changes, until you're happy with the message.
 
 ## Install
 
-- Clone the repo
-- Set-up a `.env` file
-- Use uv to create a venv
-- Link to .venv/bin/vibes
+Install with pipx or uv:
 
-Future improvements: Streamlined installation method.
+```bash
+pipx install git+https://github.com/tsvikas/vibes.git
+```
+
+or
+
+```bash
+uv tool install git+https://github.com/tsvikas/vibes.git
+```
+
+## Configuration
+
+Configure your AI provider using either a TOML config file or environment variables.
+
+### Option 1: TOML Config File
+
+Create `~/.config/vibes/config.toml`:
+
+```toml
+provider = "anthropic"  # or "openai" or "google"
+
+[providers.anthropic]
+api_key = "sk-ant-..."
+model = "claude-sonnet-4-5"  # optional
+```
+
+### Option 2: Environment Variables
+
+```bash
+export VIBES_PROVIDER=anthropic
+export ANTHROPIC_API_KEY=sk-ant-...
+export ANTHROPIC_MODEL=claude-sonnet-4-5  # optional
+```
 
 ## Usage
 
