@@ -1,4 +1,27 @@
-"""Configuration management for Vibes."""
+"""Configuration management for Vibes.
+
+Configuration is loaded from multiple sources in the following priority order:
+
+1. XDG config file: ~/.config/vibes/config.toml
+   Example structure:
+   ```toml
+   provider = "anthropic"
+
+   [providers.anthropic]
+   api_key = "sk-..."
+   model = "claude-sonnet-4-5"
+   ```
+
+2. Environment variables (loaded from .env file or system environment):
+   - VIBES_PROVIDER: Provider name (e.g., "anthropic", "openai", "google")
+   - {PROVIDER}_API_KEY: API key for the provider (e.g., ANTHROPIC_API_KEY)
+   - {PROVIDER}_MODEL: Model name for the provider (e.g., ANTHROPIC_MODEL)
+
+3. Default models (for model selection only):
+   - openai: gpt-5
+   - anthropic: claude-sonnet-4-5
+   - google: gemini-2.5-pro
+"""
 
 import os
 import tomllib
