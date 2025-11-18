@@ -147,6 +147,7 @@ filterwarnings = [
   "default::DeprecationWarning",
   "error::DeprecationWarning:vibes",
 ]
+log_level = "INFO"
 
 
 [tool.coverage]
