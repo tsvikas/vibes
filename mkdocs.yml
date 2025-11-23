@@ -1,5 +1,10 @@
 site_name: vibes
+site_url: 'https://vibes.readthedocs.io/'
+site_author: Tsvika Shapira
 site_description: Get a commit message from ChatGPT, with emojies ✨.
+
+repo_name: 'tsvikas/vibes'
+repo_url: 'https://github.com/tsvikas/vibes'
 
 theme:
   name: material

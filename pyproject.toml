@@ -31,13 +31,14 @@ classifiers = [
   "Programming Language :: Python :: 3.14",
   "Typing :: Typed",
 ]
-# urls.homepage = "https://vibes.readthedocs.io"
-urls.source = "https://github.com/tsvikas/vibes"
-urls.changelog = "https://github.com/tsvikas/vibes/blob/main/CHANGELOG.md"
-# urls.releasenotes = "https://github.com/tsvikas/vibes/releases"
-# urls.documentation = "https://vibes.readthedocs.io"
-urls.issues = "https://github.com/tsvikas/vibes/issues"
-# urls.funding = "https://github.com/sponsors/tsvikas"
+# urls.Homepage = "https://vibes.readthedocs.io"
+urls.Source = "https://github.com/tsvikas/vibes"
+urls.Changelog = "https://github.com/tsvikas/vibes/blob/main/CHANGELOG.md"
+# urls.ReleaseNotes = "https://github.com/tsvikas/vibes/releases"
+# urls.Documentation = "https://vibes.readthedocs.io"
+urls.Issues = "https://github.com/tsvikas/vibes/issues"
+# urls.Funding = "https://github.com/sponsors/tsvikas"
+# Discussions = "https://github.com/tsvikas/vibes/discussions"
 
 requires-python = ">=3.13"
 dependencies = [
@@ -57,11 +58,6 @@ vibes = "vibes.cli:app"
 
 [project.gui-scripts]
 # vibes = "vibes.gui:app.run"
-
-
-[tool.uv]
-required-version = ">=0.7.3"
-default-groups = ["dev", "test", "typing"]
 
 
 [dependency-groups]
@@ -107,6 +103,11 @@ typing = [
   "mypy ~=1.18.0",
   # add "*-stubs" and "types-*" packages here (">=0")
 ]
+
+
+[tool.uv]
+required-version = ">=0.7.3"
+default-groups = ["dev", "test", "typing"]
 
 
 [tool.hatch]
