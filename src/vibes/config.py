@@ -80,7 +80,7 @@ def get_model(provider: str | None = None) -> str:
     defaults = {
         "openai": "gpt-5",
         "anthropic": "claude-sonnet-4-5",
-        "google": "gemini-2.5-pro",
+        "google": "gemini-3-pro",
     }
 
     model = None

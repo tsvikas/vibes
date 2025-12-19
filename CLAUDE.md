@@ -42,7 +42,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 - **XDG Base Directory**: Config stored in `~/.config/vibes/config.toml`
 - **Environment Variables**: `VIBES_PROVIDER`, `*_API_KEY`, `*_MODEL` support
-- **Multi-Provider**: OpenAI (gpt-5), Anthropic (claude-sonnet-4-5), Google (gemini-2.5-pro)
+- **Multi-Provider**: OpenAI (gpt-5), Anthropic (claude-sonnet-4-5), Google (gemini-3-pro)
 
 ## Git Integration
 
