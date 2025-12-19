@@ -1757,6 +1757,7 @@ dependencies = [
     { name = "cyclopts" },
     { name = "gitpython" },
     { name = "platformdirs" },
+    { name = "pydantic" },
     { name = "pydantic-ai-slim", extra = ["anthropic", "google", "openai"] },
     { name = "python-dotenv" },
 ]
@@ -1798,6 +1799,7 @@ requires-dist = [
     { name = "cyclopts", specifier = ">=4" },
     { name = "gitpython", specifier = ">=3.1" },
     { name = "platformdirs", specifier = ">=1" },
+    { name = "pydantic", specifier = ">=2" },
     { name = "pydantic-ai-slim", extras = ["anthropic", "google", "openai"], specifier = ">=1" },
     { name = "python-dotenv", specifier = ">=1" },
 ]

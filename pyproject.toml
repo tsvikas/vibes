@@ -44,8 +44,9 @@ requires-python = ">=3.13"
 dependencies = [
   "cyclopts >=4",
   "gitpython >=3.1",
-  "pydantic-ai-slim[openai,anthropic,google] >=1",
   "platformdirs >=1",
+  "pydantic >=2",
+  "pydantic-ai-slim[openai,anthropic,google] >=1",
   "python-dotenv >=1",
 ]
 

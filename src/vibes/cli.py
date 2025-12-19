@@ -7,10 +7,19 @@ from typing import Annotated
 
 import git
 from cyclopts import App, Parameter, validators
+from pydantic import BaseModel
 from pydantic_ai import Agent
 
 from vibes import config
 from vibes.prompt import get_prompt
+
+
+class CommitMessageResponse(BaseModel):
+    """Structured response for commit message generation."""
+
+    message: str
+    emoji_legend: dict[str, str]
+
 
 app = App(name="vibes")
 app.register_install_completion_command()
@@ -67,9 +76,13 @@ def main(
     model_string = f"{config.get_provider()}:{config.get_model()}"
     agent = Agent(model_string)
 
-    # Get initial response
-    result = agent.run_sync(prompt)
-    print(result.output)
+    # Get initial response with structured output
+    result = agent.run_sync(prompt, output_type=CommitMessageResponse)
+    response = result.output
+    print(response.message)
+    print("\n\nEmoji Legend:")
+    for emoji, meaning in response.emoji_legend.items():
+        print(f"{emoji}: {meaning}")
 
     # REPL loop
     while not skip_chat:
@@ -82,6 +95,7 @@ def main(
             break
         # Get assistant reply
         result = agent.run_sync(user_input, message_history=result.all_messages())
+        print()
         print()
         print(result.output)
     return 0
