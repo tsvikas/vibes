@@ -1,13 +1,11 @@
 """Create a commit message prompt based on the current git state."""
 
 import git
-from langchain_core.prompts import PromptTemplate
 
 from vibes.resources import message_style_emoji_md, prompt_md
 
-MESSAGE_FORMAT_STR = prompt_md.read_text(encoding="utf-8")
-MESSAGE_STYLE_STR = message_style_emoji_md.read_text(encoding="utf-8")
-MESSAGE_FORMAT = PromptTemplate.from_template(MESSAGE_FORMAT_STR)
+MESSAGE_FORMAT = prompt_md.read_text(encoding="utf-8")
+MESSAGE_STYLE = message_style_emoji_md.read_text(encoding="utf-8")
 
 
 def list_files_in_commit(commit: git.Commit) -> list[str]:
@@ -116,5 +114,5 @@ def get_prompt(repo: git.Repo, commit: str, description: str) -> str:
     """Get a commit message prompt."""
     repo_info = get_repo_info(repo, commit)
     return MESSAGE_FORMAT.format(
-        **repo_info, description=description.strip(), message_style=MESSAGE_STYLE_STR
+        **repo_info, description=description.strip(), message_style=MESSAGE_STYLE
     )

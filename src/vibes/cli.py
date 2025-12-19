@@ -1,27 +1,16 @@
 """Get a commit message from ChatGPT, with emojies! ✨."""
 
+import os
 import sys
-import warnings
 from pathlib import Path
 from typing import Annotated
 
-# Suppress Pydantic V1 compatibility warning in Python 3.14+
-warnings.filterwarnings(
-    "ignore",
-    message=(
-        "Core Pydantic V1 functionality isn't compatible with Python 3.14 or greater"
-    ),
-    category=UserWarning,
-    module="langchain_core._api.deprecation",
-)
+import git
+from cyclopts import App, Parameter, validators
+from pydantic_ai import Agent
 
-import git  # noqa: E402
-from cyclopts import App, Parameter, validators  # noqa: E402
-from langchain.chat_models import init_chat_model  # noqa: E402
-from langchain_core.messages import BaseMessage, HumanMessage  # noqa: E402
-
-from vibes import config  # noqa: E402
-from vibes.prompt import get_prompt  # noqa: E402
+from vibes import config
+from vibes.prompt import get_prompt
 
 app = App(name="vibes")
 app.register_install_completion_command()
@@ -70,16 +59,17 @@ def main(
         print(prompt)
         return 0
 
-    chat_model = init_chat_model(
-        model=config.get_model(),
-        model_provider=config.get_provider(),
-        api_key=config.get_api_key(),
-    )
+    # Set API key in environment (automatically cleaned up when process exits)
+    env_var = f"{config.get_provider().upper()}_API_KEY"
+    os.environ[env_var] = config.get_api_key()
 
-    messages: list[BaseMessage] = [HumanMessage(content=prompt)]
-    response = chat_model.invoke(messages)
-    print(response.content)
-    messages.append(response)
+    # Create agent using provider:model string format
+    model_string = f"{config.get_provider()}:{config.get_model()}"
+    agent = Agent(model_string)
+
+    # Get initial response
+    result = agent.run_sync(prompt)
+    print(result.output)
 
     # REPL loop
     while not skip_chat:
@@ -91,9 +81,7 @@ def main(
         if user_input.lower() in ["exit", "quit", "", "q"]:
             break
         # Get assistant reply
-        messages.append(HumanMessage(content=user_input))
-        response = chat_model.invoke(messages)
-        messages.append(response)
+        result = agent.run_sync(user_input, message_history=result.all_messages())
         print()
-        print(response.content)
+        print(result.output)
     return 0

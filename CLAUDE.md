@@ -34,7 +34,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## AI Integration
 
-- **LangChain Framework**: Abstracts multiple AI providers (OpenAI, Anthropic, Google Gemini)
+- **Pydantic AI Framework**: Multi-provider AI integration (OpenAI, Anthropic, Google Gemini)
 - **Provider Configuration**: Support for different models / providers with configuration in config file or environment
 - **Interactive Workflow**: REPL-style conversation for commit message refinement
 
