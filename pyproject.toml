@@ -43,10 +43,10 @@ urls.Issues = "https://github.com/tsvikas/vibes/issues"
 requires-python = ">=3.13"
 dependencies = [
   "cyclopts >=4",
-  "gitpython>=3.1.44",
-  "pydantic-ai-slim[openai,anthropic,google]>=0",
-  "platformdirs>=4.0.0",
-  "python-dotenv>=1.0.1",
+  "gitpython >=3.1",
+  "pydantic-ai-slim[openai,anthropic,google] >=1",
+  "platformdirs >=1",
+  "python-dotenv >=1",
 ]
 
 [project.optional-dependencies]
