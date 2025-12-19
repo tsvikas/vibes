@@ -4,12 +4,11 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 # Development Commands
 
-- **Run**: `just test` or `uv run pytest`
+- **Test**: `just test` or `uv run pytest`
 - **Test Single**: `uv run pytest tests/test_file.py::test_name`
 - **Lint**: `just lint` (ruff + mypy)
 - **Format**: `just format` (isort + black)
-- **Format & Check**: `just format-and-check`
-- **Complete Check**: `just check` (pytest + mypy + pre-commit)
+- **Quick Check**: `just quick-tools` or `just q` (subset of formatting & linting tools, fast, good for development iterations)
 
 # Code Style
 
@@ -36,14 +35,14 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## AI Integration
 
 - **LangChain Framework**: Abstracts multiple AI providers (OpenAI, Anthropic, Google Gemini)
-- **Provider Configuration**: Support for different models per provider with fallback defaults
+- **Provider Configuration**: Support for different models / providers with configuration in config file or environment
 - **Interactive Workflow**: REPL-style conversation for commit message refinement
 
 ## Configuration System
 
 - **XDG Base Directory**: Config stored in `~/.config/vibes/config.toml`
 - **Environment Variables**: `VIBES_PROVIDER`, `*_API_KEY`, `*_MODEL` support
-- **Multi-Provider**: OpenAI (gpt-4o-mini), Anthropic (claude-3-haiku), Google (gemini-1.5-flash)
+- **Multi-Provider**: OpenAI (gpt-5), Anthropic (claude-sonnet-4-5), Google (gemini-2.5-pro)
 
 ## Git Integration
 
