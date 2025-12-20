@@ -14,7 +14,7 @@ from vibes import config
 from vibes.prompt import get_prompt
 
 
-class CommitMessageResponse(BaseModel):
+class CommitMessageResponse(BaseModel):  # type: ignore[explicit-any]
     """Structured response for commit message generation."""
 
     message: str
@@ -94,7 +94,7 @@ def main(
         if user_input.lower() in ["exit", "quit", "", "q"]:
             break
         # Get assistant reply
-        result = agent.run_sync(user_input, message_history=result.all_messages())
+        result = agent.run_sync(user_input, message_history=result.all_messages())  # type: ignore[assignment]
         print()
         print()
         print(result.output)
