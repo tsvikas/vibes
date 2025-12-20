@@ -14,7 +14,7 @@ from vibes import config
 from vibes.prompt import get_prompt
 
 
-class CommitMessageResponse(BaseModel):  # type: ignore[explicit-any]
+class CommitMessageResponse(BaseModel):
     """Structured response for commit message generation."""
 
     message: str
