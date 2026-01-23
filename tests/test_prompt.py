@@ -57,16 +57,14 @@ def test_get_repo_info_with_commit_range(git_repo: GitRepo) -> None:
     """Test get_repo_info with a commit range."""
     result = get_repo_info(git_repo.repo, "HEAD~2..HEAD")
     expected_result = {
-        "git_diff": dedent(
-            """\
+        "git_diff": dedent("""\
             diff --git a/sample_file b/sample_file
             index aeb249a..d0c0d44 100644
             --- a/sample_file
             +++ b/sample_file
             @@ -1 +1,2 @@
              this is from the 1st commit
-            +this is from the 2nd commit, with edits from the 3rd commit"""
-        ),
+            +this is from the 2nd commit, with edits from the 3rd commit"""),
         "git_ls_files": "README.md\nsample_file",
         "message": "commit #3\n\ncommit #2",
         "readme_content": "This is the README file",
@@ -78,8 +76,7 @@ def test_get_repo_info_with_commit_range_to_root(git_repo: GitRepo) -> None:
     """Test get_repo_info with a commit range."""
     result = get_repo_info(git_repo.repo, "HEAD~3..HEAD")
     expected_result = {
-        "git_diff": dedent(
-            """\
+        "git_diff": dedent("""\
             diff --git a/README.md b/README.md
             new file mode 100644
             index 0000000..4f4a730
@@ -95,8 +92,7 @@ def test_get_repo_info_with_commit_range_to_root(git_repo: GitRepo) -> None:
             +++ b/sample_file
             @@ -0,0 +1,2 @@
             +this is from the 1st commit
-            +this is from the 2nd commit, with edits from the 3rd commit"""
-        ),
+            +this is from the 2nd commit, with edits from the 3rd commit"""),
         "git_ls_files": "README.md\nsample_file",
         "message": "commit #3\n\ncommit #2\n\ncommit #1",
         "readme_content": "This is the README file",
@@ -108,8 +104,7 @@ def test_get_repo_info_with_single_commit(git_repo: GitRepo) -> None:
     """Test get_repo_info with a single commit reference."""
     result = get_repo_info(git_repo.repo, "HEAD")
     expected_result = {
-        "git_diff": dedent(
-            """\
+        "git_diff": dedent("""\
             diff --git a/sample_file b/sample_file
             index 2760370..d0c0d44 100644
             --- a/sample_file
@@ -117,8 +112,7 @@ def test_get_repo_info_with_single_commit(git_repo: GitRepo) -> None:
             @@ -1,2 +1,2 @@
              this is from the 1st commit
             -this is from the 2nd commit
-            +this is from the 2nd commit, with edits from the 3rd commit"""
-        ),
+            +this is from the 2nd commit, with edits from the 3rd commit"""),
         "git_ls_files": "README.md\nsample_file",
         "message": "commit #3",
         "readme_content": "This is the README file",
@@ -137,8 +131,7 @@ def test_get_repo_info_with_staging(git_repo: GitRepo) -> None:
 
     result = get_repo_info(git_repo.repo, "")
     expected_result = {
-        "git_diff": dedent(
-            """\
+        "git_diff": dedent("""\
             diff --git c/sample_file i/sample_file
             index d0c0d44..3a9fbbf 100644
             --- c/sample_file
@@ -146,8 +139,7 @@ def test_get_repo_info_with_staging(git_repo: GitRepo) -> None:
             @@ -1,2 +1,3 @@
              this is from the 1st commit
              this is from the 2nd commit, with edits from the 3rd commit
-            +this is from the staging area"""
-        ),
+            +this is from the staging area"""),
         "git_ls_files": "README.md\nsample_file",
         "message": "",
         "readme_content": "This is the README file",
@@ -165,8 +157,7 @@ def test_get_repo_info_with_working_dir(git_repo: GitRepo) -> None:
 
     result = get_repo_info(git_repo.repo, "")
     expected_result = {
-        "git_diff": dedent(
-            """\
+        "git_diff": dedent("""\
             diff --git i/sample_file w/sample_file
             index d0c0d44..8dce245 100644
             --- i/sample_file
@@ -174,8 +165,7 @@ def test_get_repo_info_with_working_dir(git_repo: GitRepo) -> None:
             @@ -1,2 +1,3 @@
              this is from the 1st commit
              this is from the 2nd commit, with edits from the 3rd commit
-            +this is from the working directory"""
-        ),
+            +this is from the working directory"""),
         "git_ls_files": "README.md\nsample_file",
         "message": "",
         "readme_content": "This is the README file",
@@ -192,8 +182,7 @@ def test_get_repo_info_handle_readme_not_found(git_repo: GitRepo) -> None:
 
     result = get_repo_info(git_repo.repo, "")
     expected_result = {
-        "git_diff": dedent(
-            """\
+        "git_diff": dedent("""\
             diff --git a/README.md b/README.md
             deleted file mode 100644
             index 4f4a730..0000000
@@ -201,8 +190,7 @@ def test_get_repo_info_handle_readme_not_found(git_repo: GitRepo) -> None:
             +++ /dev/null
             @@ -1 +0,0 @@
             -This is the README file
-            \\ No newline at end of file"""
-        ),
+            \\ No newline at end of file"""),
         "git_ls_files": "sample_file",
         "message": "commit #4, remove the readme",
         "readme_content": "",
@@ -214,8 +202,7 @@ def test_get_prompt(git_repo: GitRepo) -> None:
     """Test get_prompt assembles the prompt correctly."""
     description = "Test description"
     prompt = get_prompt(git_repo.repo, "HEAD", description)
-    expected_prompt_end = dedent(
-        """\
+    expected_prompt_end = dedent("""\
 ## README ####################################################################
 ```
 This is the README file
@@ -251,6 +238,5 @@ This is important notes about this commit
 ```
 Test description
 ```
-"""
-    )
+""")
     assert expected_prompt_end in prompt
