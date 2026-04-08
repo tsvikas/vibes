@@ -71,12 +71,19 @@ repos:
       - id: python-no-eval
       - id: python-no-log-warn
       - id: python-use-type-annotations
-      # rst
+      # reStructuredText files
       - id: rst-backticks
       - id: rst-directive-colons
       - id: rst-inline-touching-normal
-      # text
+      # UTF-8 encoding
       - id: text-unicode-replacement-char
+
+  # Security
+  - repo: https://github.com/Yelp/detect-secrets
+    rev: v1.5.0
+    hooks:
+      - id: detect-secrets
+        args: ['--baseline', '.secrets.baseline']
 
   # All files
   - repo: https://github.com/editorconfig-checker/editorconfig-checker.python
@@ -84,7 +91,6 @@ repos:
     hooks:
       - id: editorconfig-checker
         exclude_types: [jupyter]
-        exclude: 'resources/.*\.md'
   - repo: https://github.com/google/keep-sorted
     rev: v0.8.0
     hooks:
@@ -145,7 +151,7 @@ repos:
         args: [--select, I001, --fix]
       - id: ruff-check
   - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v1.19.1
+    rev: v1.20.0
     hooks:
       - id: mypy
         name: mypy (without imports)
@@ -188,8 +194,12 @@ repos:
     rev: v1.7.12
     hooks:
       - id: actionlint
+  - repo: https://github.com/woodruffw/zizmor-pre-commit
+    rev: v1.23.1
+    hooks:
+      - id: zizmor
 
-  # bash/sh shell scripts
+  # Shell scripts
   - repo: https://github.com/shellcheck-py/shellcheck-py
     rev: v0.11.0.1
     hooks:
