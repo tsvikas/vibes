@@ -3,21 +3,8 @@ from pathlib import Path
 import git
 import pytest
 
-pydantic_ai_importable = True
-try:
-    from pydantic_ai import Agent  # noqa: F401
-except TypeError:
-    # pydantic_ai fails to import on Python 3.14 RC due to upstream pydantic bug
-    pydantic_ai_importable = False
-
-pytestmark = pytest.mark.skipif(
-    not pydantic_ai_importable,
-    reason="pydantic_ai cannot be imported (pydantic incompatibility with this Python)",
-)
-
-if pydantic_ai_importable:
-    from vibes import __version__
-    from vibes.cli import app
+from vibes import __version__
+from vibes.cli import app
 
 
 def test_version(
