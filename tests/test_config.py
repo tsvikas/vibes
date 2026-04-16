@@ -5,13 +5,10 @@ import os
 from collections.abc import Generator
 from contextlib import contextmanager
 from pathlib import Path
-from typing import TYPE_CHECKING
+from types import ModuleType
 from unittest.mock import patch
 
 import pytest
-
-if TYPE_CHECKING:
-    import vibes.config
 
 
 def _clean_env() -> dict[str, str]:
@@ -28,7 +25,7 @@ def _config_env(
     tmp_path: Path,
     config_toml: str = "",
     env: dict[str, str] | None = None,
-) -> Generator["vibes.config"]:
+) -> Generator[ModuleType]:
     """Context manager that reloads vibes.config with controlled file+env.
 
     The patched environment stays active for the duration of the block,
