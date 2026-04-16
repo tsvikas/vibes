@@ -198,6 +198,34 @@ def test_get_repo_info_handle_readme_not_found(git_repo: GitRepo) -> None:
     assert result == expected_result
 
 
+def test_get_repo_info_at_sign_resolves_to_head(git_repo: GitRepo) -> None:
+    """Test that @ in commit range is replaced with HEAD."""
+    result_at = get_repo_info(git_repo.repo, "@~1..@")
+    result_head = get_repo_info(git_repo.repo, "HEAD~1..HEAD")
+    assert result_at == result_head
+
+
+def test_get_repo_info_filters_test_files(git_repo: GitRepo) -> None:
+    """Test that files under tests/ are excluded from ls-files."""
+    test_file = git_repo.path / "tests" / "test_something.py"
+    test_file.parent.mkdir()
+    test_file.write_text("assert True\n")
+    git_repo.repo.index.add([str(test_file)])
+    git_repo.repo.index.commit(message="commit #4, add test file")
+
+    result = get_repo_info(git_repo.repo, "HEAD")
+    assert "tests/test_something.py" not in result["git_ls_files"]
+    # Non-test files still present
+    assert "sample_file" in result["git_ls_files"]
+
+
+def test_get_repo_info_no_diff_falls_back_to_head(git_repo: GitRepo) -> None:
+    """When staging and working tree are clean, falls back to HEAD commit."""
+    result_empty = get_repo_info(git_repo.repo, "")
+    result_head = get_repo_info(git_repo.repo, "HEAD")
+    assert result_empty == result_head
+
+
 def test_get_prompt(git_repo: GitRepo) -> None:
     """Test get_prompt assembles the prompt correctly."""
     description = "Test description"
@@ -240,3 +268,10 @@ Test description
 ```
 """)
     assert expected_prompt_end in prompt
+
+
+def test_get_prompt_strips_description_whitespace(git_repo: GitRepo) -> None:
+    """Test get_prompt strips whitespace from description."""
+    prompt = get_prompt(git_repo.repo, "HEAD", "  padded  ")
+    assert "padded" in prompt
+    assert "  padded  " not in prompt
