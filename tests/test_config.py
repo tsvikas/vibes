@@ -80,38 +80,37 @@ class TestGetApiKey:
 provider = "anthropic"
 
 [providers.anthropic]
-api_key = "sk-from-file"
+api_key = "test-key-from-file"  # pragma: allowlist secret
 """
         with _config_env(tmp_path, toml) as cfg:
-            assert cfg.get_api_key() == "sk-from-file"
+            assert cfg.get_api_key() == "test-key-from-file"
 
     def test_from_env_var(self, tmp_path: Path) -> None:
         with _config_env(
             tmp_path,
             'provider = "openai"\n',
-            env={"OPENAI_API_KEY": "sk-from-env"},
+            env={"OPENAI_API_KEY": "test-key-from-env"},  # pragma: allowlist secret
         ) as cfg:
-            assert cfg.get_api_key() == "sk-from-env"
+            assert cfg.get_api_key() == "test-key-from-env"
 
     def test_explicit_provider_arg(self, tmp_path: Path) -> None:
         with _config_env(
             tmp_path,
             'provider = "anthropic"\n',
-            env={"OPENAI_API_KEY": "sk-openai"},
+            env={"OPENAI_API_KEY": "test-key-openai"},  # pragma: allowlist secret
         ) as cfg:
-            assert cfg.get_api_key("openai") == "sk-openai"
+            assert cfg.get_api_key("openai") == "test-key-openai"
 
     def test_config_file_takes_precedence_over_env(self, tmp_path: Path) -> None:
         toml = """\
 provider = "anthropic"
 
 [providers.anthropic]
-api_key = "sk-from-file"
+api_key = "test-key-from-file"  # pragma: allowlist secret
 """
-        with _config_env(
-            tmp_path, toml, env={"ANTHROPIC_API_KEY": "sk-from-env"}
-        ) as cfg:
-            assert cfg.get_api_key() == "sk-from-file"
+        env = {"ANTHROPIC_API_KEY": "test-key-from-env"}  # pragma: allowlist secret
+        with _config_env(tmp_path, toml, env=env) as cfg:
+            assert cfg.get_api_key() == "test-key-from-file"
 
     def test_missing_raises(self, tmp_path: Path) -> None:
         with (
