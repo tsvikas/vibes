@@ -99,7 +99,7 @@ docs = [
   "mkdocs-section-index ~=0.3.0",
 ]
 typing = [
-  "mypy ~=2.1.0",
+  "mypy ~=2.2.0",
   "ty ~=0.0",
   # add "*-stubs" and "types-*" packages here (">=0")
 ]
@@ -174,7 +174,7 @@ mypy_path = "stubs"
 fixed_format_cache = true
 # set the platform
 python_version = "3.13"
-# enable checks [last updated: mypy 2.1]
+# enable checks [last updated: mypy 2.2]
 strict = true
 strict_equality_for_none = true
 disallow_any_unimported = true
