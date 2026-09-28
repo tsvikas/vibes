@@ -19,16 +19,16 @@ Talk to the AI and request changes, until you're happy with the message.
 
 ## Install
 
-Install with pipx or uv:
+Install this tool using uv (or pipx):
 
 ```bash
-pipx install git+https://github.com/tsvikas/vibes.git
+uv tool install git+https://github.com/tsvikas/vibes.git
 ```
 
 or
 
 ```bash
-uv tool install git+https://github.com/tsvikas/vibes.git
+pipx install git+https://github.com/tsvikas/vibes.git
 ```
 
 ## Configuration
@@ -75,7 +75,7 @@ Future improvements: The ability to control the prompt, and the template.
 ## Contributing
 
 Interested in contributing?
-See [CONTRIBUTING.md](CONTRIBUTING.md) for development setup and guideline.
+See [CONTRIBUTING.md](CONTRIBUTING.md) for development setup and guidelines.
 
 [black-badge]: https://img.shields.io/badge/code%20style-black-000000.svg
 [black-link]: https://github.com/psf/black
